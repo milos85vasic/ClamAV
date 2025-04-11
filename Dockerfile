@@ -17,7 +17,7 @@ RUN wget -O - https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-    RUN mkdir -p /var/lib/clamav && \
+RUN mkdir -p /var/lib/clamav && \
     echo "DatabaseMirror db.cn.clamav.net" > /etc/clamav/freshclam.conf && \
     echo "DatabaseMirror db.local.clamav.net" >> /etc/clamav/freshclam.conf && \
     echo "Checks 4" >> /etc/clamav/freshclam.conf && \
