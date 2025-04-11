@@ -31,9 +31,7 @@ RUN groupadd clamav && \
     echo "MaxAttempts 3" >> /etc/clamav/freshclam.conf && \
     echo "ScriptedUpdates no" >> /etc/clamav/freshclam.conf
 
-COPY Scripts/DownloadDb.sh /DownloadDb.sh
-
-RUN chmod +x /DownloadDb.sh && /DownloadDb.sh
+RUN freshclam
 
 COPY Scripts/ /Scripts/
 
