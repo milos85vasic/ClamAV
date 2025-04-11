@@ -40,7 +40,7 @@ SCRIPT="/Scripts/ScanAndAlert.sh"
 if test -e "$SCRIPT"; then
 
     echo "Script ScanAndAlert.sh found at $SCRIPT"
-    exec "$SCRIPT"
+    sh "$SCRIPT" &
 
 else
     
