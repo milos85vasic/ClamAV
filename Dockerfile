@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt update && \
+    apt install -y --no-install-recommends \
     sudo \
     wget \
     gnupg \
@@ -13,9 +13,9 @@ RUN apt-get update && \
     
 RUN https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb
     
-RUN apt-get install -y ./clamav-1.0.8.linux.x86_64.deb && \
+RUN apt install -y ./clamav-1.0.8.linux.x86_64.deb && \
     rm clamav.deb && \
-    apt-get clean && \
+    apt clean && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/lib/clamav && \
