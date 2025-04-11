@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 RUN apt update && \
-    apt install -y \
+    apt install -y --no-install-recommends \
     sudo \
     wget \
     dos2unix \
@@ -9,9 +9,12 @@ RUN apt update && \
     clamav-daemon \
     clamdscan \
     clamav-freshclam \
+    ca-certificates && \
     msmtp \
     mailutils \
-    inotify-tools
+    inotify-tools && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/lib/clamav/tmp && \
     mkdir -p /var/run/clamav && \
@@ -26,10 +29,14 @@ RUN echo "DatabaseMirror db.cn.clamav.net" >> /etc/clamav/freshclam.conf && \
     echo "DatabaseMirror db.by.clamav.net" >> /etc/clamav/freshclam.conf && \
     echo "DatabaseMirror db.kz.clamav.net" >> /etc/clamav/freshclam.conf && \
     echo "DatabaseMirror db.tr.clamav.net" >> /etc/clamav/freshclam.conf && \
-    echo "Checks 4" >> /etc/clamav/freshclam.conf && \
+    echo "Checks 24" >> /etc/clamav/freshclam.conf && \
     echo "MaxAttempts 5" >> /etc/clamav/freshclam.conf
 
+HEALTHCHECK --interval=1h --timeout=30s \
+    CMD clamscan --debug --infected --no-summary /var/lib/clamav/main.cvd || exit 1
+
 COPY Scripts/ /Scripts/
+
 RUN chmod +x /Scripts/*.sh
 RUN find /Scripts/ -type f -exec chmod +x {} \; && dos2unix /Scripts/*
 
