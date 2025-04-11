@@ -5,7 +5,7 @@ RUN apt-get update && \
       clamav \
       clamav-daemon \
       clamdscan \
-      freshclam \
+      clamav-freshclam \
       msmtp \
       mailutils \
       inotify-tools && \
