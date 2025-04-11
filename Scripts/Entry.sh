@@ -1,4 +1,3 @@
-#!/bin/bash
 # set -e
 
 # chown -R clamav:clamav /var/lib/clamav /var/run/clamav
@@ -45,6 +44,8 @@ if test -e "$SCRIPT"; then
 
     # chmod +x "$SCRIPT"
     # exec "$SCRIPT"
+
+    exit 0
 
 else
     
