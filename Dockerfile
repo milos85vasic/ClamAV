@@ -39,3 +39,5 @@ FROM ubuntu:latest
 # VOLUME /quarantine
 
 # ENTRYPOINT ["/bin/bash", "/Scripts/Entry.sh"]
+
+CMD ["tail", "-f", "/dev/null"]
