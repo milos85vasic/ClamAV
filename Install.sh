@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker exec clamav freshclam
+sh Build.sh && sh Update.sh && sh StartService.sh
