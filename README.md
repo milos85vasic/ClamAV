@@ -1,6 +1,7 @@
 # ClamAV
 
 The very basic configuration of ClamAV anti-virus running inside the Docker container.
+Anti-virus monitors and scans the directory mounted to the following path: `/mnt/DATA`.
 
 ## Project structure
 
