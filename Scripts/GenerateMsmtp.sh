@@ -1,6 +1,5 @@
-#!/bin/bash
+#!/bin/sh
 
-# Generate msmtprc config using env vars
 cat <<EOF > /etc/msmtprc
 account default
 host ${SMTP_HOST}
@@ -14,5 +13,6 @@ tls_starttls on
 logfile /var/log/msmtp.log
 EOF
 
-# Secure the file
-chmod 600 /etc/msmtprc && more /etc/msmtprc
+chmod 600 /etc/msmtprc
+
+echo "Test email from ClamAV" | mailx -s "ClamAV Setup Test" ${ALERT_EMAIL}
