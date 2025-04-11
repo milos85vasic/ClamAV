@@ -27,5 +27,4 @@ SMTP_PASSWORD=""      # App password
 ALERT_EMAIL=""        # Recipient
 ```
 
-Generate the `msmtprc` by running the script `Scripts/GenerateMsmtp.sh`
-
+Install everything by running the script `Install.sh`
