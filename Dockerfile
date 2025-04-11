@@ -14,7 +14,7 @@ RUN apt update && \
 RUN wget https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb
     
 RUN apt install -y ./clamav-1.0.8.linux.x86_64.deb && \
-    rm clamav.deb && \
+    rm clamav-1.0.8.linux.x86_64.deb && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
