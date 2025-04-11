@@ -23,7 +23,6 @@ Anti-virus monitors and scans the directory mounted to the following path: `/mnt
     ├── RepairDb.sh
     ├── DownloadDb.sh
     ├── GenerateMsmtp.sh
-    ├── PrintMsmtp.sh
     ├── ScanAndAlert.sh
     └── Schedule.sh
 ```
