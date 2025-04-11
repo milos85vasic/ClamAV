@@ -28,11 +28,11 @@ The very basic configuration of ClamAV anti-virus running inside the Docker cont
 Set the environment variables to set on host machine:
 
 ```shell
+ALERT_EMAIL=""        # Comma separate recipiants list
 SMTP_HOST=""          # e.g., smtp.gmail.com
 SMTP_PORT=""          # e.g., 587
 SMTP_USER=""          # your@email.com
 SMTP_PASSWORD=""      # App password
-ALERT_EMAIL=""        # Recipient
 ```
 
-Install everything by running the script `Install.sh`
+Install everything by running the install script `Install.sh`.
