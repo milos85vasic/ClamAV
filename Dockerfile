@@ -26,8 +26,10 @@ RUN mkdir -p /var/lib/clamav && \
     echo "Checks 4" >> /etc/clamav/freshclam.conf && \
     echo "MaxAttempts 3" >> /etc/clamav/freshclam.conf && \
     echo "ScriptedUpdates no" >> /etc/clamav/freshclam.conf && \
-    chown -R clamav:clamav /var/lib/clamav && \
-    chown -R clamav:clamav /etc/clamav
+    chown -R clamav /var/lib/clamav && \
+    chown -R clamav /etc/clamav && \
+    chgrp -R clamav /var/lib/clamav && \
+    chgrp -R clamav /etc/clamav
 
 COPY Scripts/DownloadDb.sh /DownloadDb.sh
 
