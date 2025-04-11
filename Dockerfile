@@ -11,8 +11,9 @@ RUN apt update && \
     mailutils \
     inotify-tools
     
-RUN wget -O - https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb -o clamav.deb && \
-    apt install -y ./clamav.deb && \
+RUN wget -O - https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb -o clamav.deb
+    
+RUN apt install -y ./clamav.deb && \
     rm clamav.deb && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
