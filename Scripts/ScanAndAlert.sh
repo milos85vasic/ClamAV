@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# Load environment variables (fallback to defaults)
 SMTP_HOST=${SMTP_HOST:-"smtp.gmail.com"}
 SMTP_PORT=${SMTP_PORT:-"587"}
 ALERT_EMAIL=${ALERT_EMAIL:-"your@email.com"}
 LOG_FILE="/var/log/clamav/scan.log"
 
-# Run scan
 clamscan -r --move=/quarantine /scandir > "$LOG_FILE" 2>&1
 
 # Send alerts

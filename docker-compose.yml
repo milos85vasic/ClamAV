@@ -3,19 +3,19 @@ services:
   antivirus:
     build: .
     container_name: clamav
-    # environment:
-    #   - SMTP_HOST=${SMTP_HOST}
-    #   - SMTP_PORT=${SMTP_PORT}
-    #   - SMTP_USER=${SMTP_USER}
-    #   - SMTP_PASSWORD=${SMTP_PASSWORD}
-    #   - ALERT_EMAIL=${ALERT_EMAIL}
-    #   - PUID=102
-    #   - PGID=105
-    # volumes:
-      # - ./clamav_db:/var/lib/clamav
-      # - /mnt/DATA:/scandir:ro
-      # - ./quarantine:/quarantine
-      # - ./Scripts:/Scripts
-    # cap_add:
-    #   - NET_ADMIN
+    environment:
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - ALERT_EMAIL=${ALERT_EMAIL}
+      - PUID=102
+      - PGID=105
+    volumes:
+      - ./clamav_db:/var/lib/clamav
+      - /mnt/DATA:/scandir:ro
+      - ./quarantine:/quarantine
+      - ./Scripts:/Scripts
+    cap_add:
+      - NET_ADMIN
     restart: unless-stopped
