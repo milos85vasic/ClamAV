@@ -9,8 +9,9 @@ RUN apt update && \
     ca-certificates \
     msmtp \
     mailutils \
-    inotify-tools && \
-    wget -O - https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb -o clamav.deb && \
+    inotify-tools
+    
+RUN wget -O - https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb -o clamav.deb && \
     apt install -y ./clamav.deb && \
     rm clamav.deb && \
     apt clean && \
