@@ -29,4 +29,4 @@ tls_starttls on
 logfile /var/log/msmtp.log
 EOF
     
-/Scripts/ScanAndAlert.sh
+sh /Scripts/ScanAndAlert.sh

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 sudo docker-compose build --no-cache && \
     sudo docker-compose up --build -d
