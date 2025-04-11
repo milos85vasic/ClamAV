@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  clamav:
+  antivirus:
     build: .
     container_name: clamav
     # environment:
