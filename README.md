@@ -1,6 +1,6 @@
 # ClamAV
 
-Very basic configuration for ClamAV running inside Docker container.
+The very basic configuration of ClamAV anti-virus running inside the Docker container.
 
 ## Project structure
 
@@ -8,11 +8,19 @@ Very basic configuration for ClamAV running inside Docker container.
 ~
 ├── docker-compose.yml
 ├── Dockerfile
-├── msmtprc
-├── clamav_db/       # Virus definitions
-├── quarantine/      # Infected files
+├── clamav-monitor.service
+├── Install.sh
+├── LICENSE
+├── README.md
+├── README.pdf
+├── RealtimeMonitor.sh
+├── RunInBackground.sh
+├── StartService.sh
+├── Update.sh
 └── Scripts/
-    └── ScanAndAlert.sh
+    ├── GenerateMsmtp.sh
+    ├── ScanAndAlert.sh
+    └── Schedule.sh
 ```
 
 ## Setup
