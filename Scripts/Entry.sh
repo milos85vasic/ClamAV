@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [ ! -f "/var/lib/clamav/daily.cvd" ]; then
+  
+    echo "Initializing ClamAV databases..."
+    freshclam --stdout --no-warnings
+fi
+
+freshclam --daemon --stdout &
+clamd &
+
 cat <<EOF > /etc/msmtprc
 account default
 host ${SMTP_HOST}
@@ -12,13 +21,5 @@ tls on
 tls_starttls on
 logfile /var/log/msmtp.log
 EOF
-
-if [ ! -f "/var/lib/clamav/main.cvd" ]; then
     
-    echo "Downloading initial ClamAV database..."
-    freshclam --stdout
-fi
-
-freshclam --daemon --checks=1 --stdout && \
-    clamd && \
-    /Scripts/ScanAndAlert.sh
+/Scripts/ScanAndAlert.sh
