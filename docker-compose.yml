@@ -9,7 +9,7 @@ services:
       - TZ=Europe/London
     volumes:
       - ./clamav_db:/var/lib/clamav       # Virus definitions
-      - /mnt/DATA:/scandir:rw             # Read-only SMB mount
+      - /mnt/DATA:/scandir:rw             # SMB mount
       - ./quarantine:/quarantine          # Infected files
       - ./scripts:/scripts                # Custom scripts
     cap_add:
