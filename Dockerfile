@@ -1,7 +1,7 @@
 FROM ubuntu:24.10
 
-RUN apt-get update && \
-    apt-get install -y \
+RUN apt update && \
+    apt install -y \
     wget \
     dos2unix \
     clamav \
@@ -10,8 +10,7 @@ RUN apt-get update && \
     clamav-freshclam \
     msmtp \
     mailutils \
-    inotify-tools && \
-    rm -rf /var/lib/apt/lists/*
+    inotify-tools
 
 RUN mkdir -p /var/lib/clamav/tmp && \
     mkdir -p /var/run/clamav && \
