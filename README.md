@@ -1,4 +1,3 @@
 # ClamAV
 
-ClamAV running inside Docker container.
-
+Very basic configuration for ClamAV running inside Docker container.
