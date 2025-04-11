@@ -47,3 +47,5 @@ else
     echo "Script ScanAndAlert.sh not found at $SCRIPT"
     exit 1
 fi
+
+tail -f /var/log/clamav/clamav.log
