@@ -19,12 +19,15 @@ RUN apt install -y ./clamav-1.0.8.linux.x86_64.deb && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/lib/clamav && \
+    mkdir -p /etc/clamav/ && \
+    touch /etc/clamav/freshclam.conf && \
     echo "DatabaseMirror db.cn.clamav.net" > /etc/clamav/freshclam.conf && \
     echo "DatabaseMirror db.local.clamav.net" >> /etc/clamav/freshclam.conf && \
     echo "Checks 4" >> /etc/clamav/freshclam.conf && \
     echo "MaxAttempts 3" >> /etc/clamav/freshclam.conf && \
     echo "ScriptedUpdates no" >> /etc/clamav/freshclam.conf && \
-    chown -R clamav:clamav /var/lib/clamav
+    chown -R clamav:clamav /var/lib/clamav && \
+    chown -R clamav:clamav /etc/clamav
 
 COPY Scripts/DownloadDb.sh /DownloadDb.sh
 
