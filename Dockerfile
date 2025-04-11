@@ -31,6 +31,7 @@ RUN groupadd clamav && \
     echo "MaxAttempts 3" >> /usr/local/etc/freshclam.conf && \
     echo "ScriptedUpdates no" >> /usr/local/etc/freshclam.conf
 
+# FIXME: Use VPN
 RUN freshclam
 
 COPY Scripts/ /Scripts/
