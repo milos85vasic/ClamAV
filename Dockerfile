@@ -3,6 +3,7 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     apt-get install -y \
       wget \
+      dos2unix \
       clamav \
       clamav-daemon \
       clamdscan \
@@ -26,10 +27,11 @@ RUN mkdir -p /var/run/clamav && \
 
 COPY Scripts/ /Scripts/
 RUN chmod +x /Scripts/*.sh
+RUN find /Scripts/ -type f -exec chmod +x {} \; && dos2unix /Scripts/*
 
 VOLUME /etc/msmtprc
 VOLUME /var/lib/clamav
 VOLUME /scandir
 VOLUME /quarantine
 
-ENTRYPOINT ["/Scripts/Entry.sh"]
+ENTRYPOINT ["/bin/bash", "/Scripts/Entry.sh"]

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ ! -f "/var/lib/clamav/main.cvd" ]; then \
 
@@ -16,6 +17,8 @@ fi
 freshclam --daemon --stdout &
 clamd &
 
+sleep 5
+
 cat <<EOF > /etc/msmtprc
 account default
 host ${SMTP_HOST}
@@ -29,4 +32,4 @@ tls_starttls on
 logfile /var/log/msmtp.log
 EOF
     
-sh /Scripts/ScanAndAlert.sh
+exec /Scripts/ScanAndAlert.sh
