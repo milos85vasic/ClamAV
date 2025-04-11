@@ -1,26 +1,33 @@
 #!/bin/bash
 set -e
 
-chown -R clamav:clamav /var/lib/clamav /var/run/clamav
+validate_cvd() {
+    if ! clamscan --debug --infected --no-summary "$1"; then
+        echo "Corrupted CVD detected: $(basename "$1")" >&2
+        rm -f "$1"
+        return 1
+    fi
+}
+
+mkdir -p /var/lib/clamav/tmp
+chown -R clamav:clamav /var/lib/clamav
 chmod -R 775 /var/lib/clamav
 
-if [ ! -f "/var/lib/clamav/main.cvd" ]; then \
+for cvd in /var/lib/clamav/*.cvd; do
+    [ -f "$cvd" ] && validate_cvd "$cvd"
+done
 
-    wget -q --tries=3 --timeout=15 \
-        -O /var/lib/clamav/main.cvd \
-        http://db.cn.clamav.net/main.cvd && \
-        chown clamav:clamav /var/lib/clamav/main.cvd;
-fi
-
-if [ ! -f "/var/lib/clamav/daily.cvd" ]; then
-  
-    freshclam --stdout --no-warnings
+if [ ! -f "/var/lib/clamav/main.cvd" ] || \
+   [ ! -f "/var/lib/clamav/daily.cvd" ] || \
+   [ ! -f "/var/lib/clamav/bytecode.cvd" ]; then
+    echo "Downloading fresh databases..."
+    sudo -u clamav freshclam --stdout --no-warnings
 fi
 
 sudo -u clamav freshclam --daemon &
 sudo -u clamav clamd &
 
-sleep 5
+while ! [ -S /var/run/clamav/clamd.ctl ]; do sleep 1; done
 
 cat <<EOF > /etc/msmtprc
 account default
@@ -40,7 +47,7 @@ SCRIPT="/Scripts/ScanAndAlert.sh"
 if test -e "$SCRIPT"; then
 
     echo "Script ScanAndAlert.sh found at $SCRIPT"
-    sh "$SCRIPT" &
+    exec "$SCRIPT" &
 
 else
     
