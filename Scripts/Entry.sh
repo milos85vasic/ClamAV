@@ -1,8 +1,15 @@
 #!/bin/bash
 
+if [ ! -f "/var/lib/clamav/main.cvd" ]; then \
+
+    wget -q --tries=3 --timeout=15 \
+        -O /var/lib/clamav/main.cvd \
+        http://db.cn.clamav.net/main.cvd && \
+        chown clamav:clamav /var/lib/clamav/main.cvd;
+fi
+
 if [ ! -f "/var/lib/clamav/daily.cvd" ]; then
   
-    echo "Initializing ClamAV databases..."
     freshclam --stdout --no-warnings
 fi
 
