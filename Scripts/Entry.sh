@@ -13,6 +13,12 @@ tls_starttls on
 logfile /var/log/msmtp.log
 EOF
 
-freshclam --daemon &&
-clamd &&
-/Scripts/ScanAndAlert.sh
+if [ ! -f "/var/lib/clamav/main.cvd" ]; then
+    
+    echo "Downloading initial ClamAV database..."
+    freshclam --stdout
+fi
+
+freshclam --daemon --checks=1 --stdout && \
+    clamd && \
+    /Scripts/ScanAndAlert.sh
