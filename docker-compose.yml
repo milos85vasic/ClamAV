@@ -9,6 +9,8 @@ services:
       - SMTP_USER=${SMTP_USER}
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - ALERT_EMAIL=${ALERT_EMAIL}
+      - PUID=102
+      - PGID=105
     volumes:
       - ./clamav_db:/var/lib/clamav
       - /mnt/DATA:/scandir:ro

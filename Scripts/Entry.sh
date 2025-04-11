@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+chown -R clamav:clamav /var/lib/clamav /var/run/clamav
+chmod -R 775 /var/lib/clamav
+
 if [ ! -f "/var/lib/clamav/main.cvd" ]; then \
 
     wget -q --tries=3 --timeout=15 \
@@ -14,8 +17,8 @@ if [ ! -f "/var/lib/clamav/daily.cvd" ]; then
     freshclam --stdout --no-warnings
 fi
 
-freshclam --daemon --stdout &
-clamd &
+sudo -u clamav freshclam --daemon &
+sudo -u clamav clamd &
 
 sleep 5
 
