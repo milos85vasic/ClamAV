@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  clamav:
+    image: clamav/clamav:latest
+    container_name: clamav
+    environment:
+      - CLAMD_STARTUP_TIMEOUT=300
+      - FRESHCLAM_CHECKS_PER_DAY=12       # Update every 2 hours
+      - TZ=Europe/London
+    volumes:
+      - ./clamav_db:/var/lib/clamav       # Virus definitions
+      - /mnt/DATA:/scandir:rw             # Read-only SMB mount
+      - ./quarantine:/quarantine          # Infected files
+      - ./scripts:/scripts                # Custom scripts
+    cap_add:
+      - NET_ADMIN                         # Required for email alerts
+    restart: unless-stopped
