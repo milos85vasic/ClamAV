@@ -32,6 +32,8 @@ VOLUME /var/lib/clamav
 VOLUME /scandir
 VOLUME /quarantine
 
+# FIXME:
+
 HEALTHCHECK --interval=1h --timeout=3s \
     CMD freshclam --quiet --on-update-execute=echo "Mirror working" || exit 1
 
