@@ -19,6 +19,7 @@ Anti-virus monitors and scans the directory mounted to the following path: `/mnt
 ├── StartService.sh
 ├── Update.sh
 └── Scripts/
+    ├── Entry.sh
     ├── GenerateMsmtp.sh
     ├── PrintMsmtp.sh
     ├── ScanAndAlert.sh

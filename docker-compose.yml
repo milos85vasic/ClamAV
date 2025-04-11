@@ -4,19 +4,16 @@ services:
     build: .
     container_name: clamav
     environment:
-      - CLAMD_STARTUP_TIMEOUT=300
-      - FRESHCLAM_CHECKS_PER_DAY=12     # Updates every 2h
-      - TZ=Europe/Moscow
-      - SMTP_HOST=${SMTP_HOST}          # e.g., smtp.gmail.com
-      - SMTP_PORT=${SMTP_PORT}          # e.g., 587
-      - SMTP_USER=${SMTP_USER}          # your@email.com
-      - SMTP_PASSWORD=${SMTP_PASSWORD}  # App password
-      - ALERT_EMAIL=${ALERT_EMAIL}      # Recipient
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - ALERT_EMAIL=${ALERT_EMAIL}
     volumes:
-      - ./clamav_db:/var/lib/clamav     # Virus definitions
-      - /mnt/DATA:/scandir:ro           # Read-only SMB mount
-      - ./quarantine:/quarantine        # Infected files
-      - ./Scripts:/Scripts              # Custom scripts
+      - ./clamav_db:/var/lib/clamav
+      - /mnt/DATA:/scandir:ro
+      - ./quarantine:/quarantine
+      - ./Scripts:/Scripts
     cap_add:
-      - NET_ADMIN  # Required for email
+      - NET_ADMIN
     restart: unless-stopped
