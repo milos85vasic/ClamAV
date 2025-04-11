@@ -1,17 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 
+# Load environment variables (fallback to defaults)
+SMTP_HOST=${SMTP_HOST:-"smtp.gmail.com"}
+SMTP_PORT=${SMTP_PORT:-"587"}
+ALERT_EMAIL=${ALERT_EMAIL:-"your@email.com"}
 LOG_FILE="/var/log/clamav/scan.log"
-EMAIL="your@email.com"
 
 # Run scan
 clamscan -r --move=/quarantine /scandir > "$LOG_FILE" 2>&1
 
-# Check for infections
+# Send alerts
 if grep -q "FOUND" "$LOG_FILE"; then
-  mail -s "🚨 ClamAV Infection Alert" "$EMAIL" < "$LOG_FILE"
-fi
+  
+  echo "Infected files found!" | mail -s "🚨 ClamAV Alert" "$ALERT_EMAIL" -A "$LOG_FILE"
 
-# Check for errors
-if grep -q "ERROR" "$LOG_FILE"; then
-  mail -s "⚠️ ClamAV Critical Error" "$EMAIL" < "$LOG_FILE"
+elif grep -q "ERROR" "$LOG_FILE"; then
+  
+  echo "Scan error occurred!" | mail -s "⚠️ ClamAV Error" "$ALERT_EMAIL" -A "$LOG_FILE"
 fi

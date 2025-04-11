@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nohup ~/RealtimeMonitor.sh > /dev/null 2>&1 &
+nohup RealtimeMonitor.sh > /dev/null 2>&1 &
