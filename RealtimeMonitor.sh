@@ -5,7 +5,7 @@
 # sudo apt install inotify-tools
 #
 
-while inotifywait -r -e create,modify /mnt/smb_share; do
+while inotifywait -r -e create,modify /mnt/DATA; do
 
   docker exec clamav /scripts/ScanAndAlert.sh
 done
