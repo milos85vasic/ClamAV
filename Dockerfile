@@ -40,4 +40,4 @@ VOLUME /var/lib/clamav
 VOLUME /scandir
 VOLUME /quarantine
 
-ENTRYPOINT ["/bin/bash", "/Scripts/Entry.sh"]
+# ENTRYPOINT ["/bin/bash", "/Scripts/Entry.sh"]
