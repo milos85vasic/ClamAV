@@ -30,8 +30,8 @@ RUN apt update && \
 #     echo "MaxAttempts 5" >> /etc/clamav/freshclam.conf && \
 #     echo "AllowSupplementaryGroups yes" >> /etc/clamav/freshclam.conf
 
-COPY Scripts/ /Scripts/
-RUN chmod +x /Scripts/*.sh
+# COPY Scripts/ /Scripts/
+# RUN chmod +x /Scripts/*.sh
 # RUN find /Scripts/ -type f -exec chmod +x {} \; && dos2unix /Scripts/*
 
 # VOLUME /etc/msmtprc
