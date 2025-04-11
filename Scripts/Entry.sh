@@ -37,4 +37,17 @@
     
 # exec /Scripts/ScanAndAlert.sh
 
-echo "FIXME - Entry.sh"
+SCRIPT="/Scripts/ScanAndAlert.sh"
+
+if test -e "$SCRIPT"; then
+
+    echo "Script ScanAndAlert.sh found at $SCRIPT"
+
+    # chmod +x "$SCRIPT"
+    # exec "$SCRIPT"
+
+else
+    
+    echo "Script ScanAndAlert.sh not found at $SCRIPT"
+    exit 1
+fi
