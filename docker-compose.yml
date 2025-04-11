@@ -11,7 +11,7 @@ services:
       - ./clamav_db:/var/lib/clamav       # Virus definitions
       - /mnt/DATA:/scandir:rw             # SMB mount
       - ./quarantine:/quarantine          # Infected files
-      - ./Scripts:/scripts                # Custom scripts
+      - ./Scripts:/Scripts                # Custom scripts
     cap_add:
       - NET_ADMIN                         # Required for email alerts
     restart: unless-stopped

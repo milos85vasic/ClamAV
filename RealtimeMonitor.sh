@@ -7,5 +7,5 @@
 
 while inotifywait -r -e create,modify /mnt/DATA; do
 
-  docker exec clamav /scripts/ScanAndAlert.sh
+  docker exec clamav /Scripts/ScanAndAlert.sh
 done
