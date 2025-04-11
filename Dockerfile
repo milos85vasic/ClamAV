@@ -2,6 +2,7 @@ FROM ubuntu:22.04
 
 RUN apt-get update && \
     apt-get install -y \
+      wget \
       clamav \
       clamav-daemon \
       clamdscan \
@@ -40,5 +41,5 @@ VOLUME /quarantine
 
 HEALTHCHECK --interval=1h --timeout=3s \
     CMD freshclam --quiet --on-update-execute=echo "Mirror working" || exit 1
-    
+
 ENTRYPOINT ["/Scripts/Entry.sh"]
