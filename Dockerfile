@@ -24,12 +24,12 @@ RUN groupadd clamav && \
     chown -R clamav:clamav /var/lib/clamav && \
     mkdir -p /etc/clamav/ && \
     chown -R clamav:clamav /etc/clamav && \
-    touch /etc/clamav/freshclam.conf && \
-    echo "DatabaseMirror db.cn.clamav.net" > /etc/clamav/freshclam.conf && \
-    echo "DatabaseMirror db.local.clamav.net" >> /etc/clamav/freshclam.conf && \
-    echo "Checks 4" >> /etc/clamav/freshclam.conf && \
-    echo "MaxAttempts 3" >> /etc/clamav/freshclam.conf && \
-    echo "ScriptedUpdates no" >> /etc/clamav/freshclam.conf
+    touch /usr/local/etc/freshclam.conf && \
+    echo "DatabaseMirror db.cn.clamav.net" > /usr/local/etc/freshclam.conf && \
+    echo "DatabaseMirror db.local.clamav.net" >> /usr/local/etc/freshclam.conf && \
+    echo "Checks 4" >> /usr/local/etc/freshclam.conf && \
+    echo "MaxAttempts 3" >> /usr/local/etc/freshclam.conf && \
+    echo "ScriptedUpdates no" >> /usr/local/etc/freshclam.conf
 
 RUN freshclam
 
