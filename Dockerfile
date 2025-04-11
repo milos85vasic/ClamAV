@@ -24,7 +24,8 @@ RUN apt update && \
     echo "ScriptedUpdates no" >> /etc/clamav/freshclam.conf && \
     chown -R clamav:clamav /var/lib/clamav
 
-COPY scripts/DownloadDb.sh /DownloadDb.sh
+COPY Scripts/DownloadDb.sh /DownloadDb.sh
+
 RUN chmod +x /DownloadDb.sh && /DownloadDb.sh
 
 COPY Scripts/ /Scripts/
