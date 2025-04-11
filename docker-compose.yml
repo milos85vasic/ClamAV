@@ -11,11 +11,11 @@ services:
       - ALERT_EMAIL=${ALERT_EMAIL}
       - PUID=102
       - PGID=105
-    volumes:
-      - ./clamav_db:/var/lib/clamav
-      - /mnt/DATA:/scandir:ro
-      - ./quarantine:/quarantine
-      - ./Scripts:/Scripts
+    # volumes:
+      # - ./clamav_db:/var/lib/clamav
+      # - /mnt/DATA:/scandir:ro
+      # - ./quarantine:/quarantine
+      # - ./Scripts:/Scripts
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
