@@ -2,15 +2,15 @@ FROM ubuntu:22.04
 
 RUN apt-get update && \
     apt-get install -y \
-      wget \
-      dos2unix \
-      clamav \
-      clamav-daemon \
-      clamdscan \
-      clamav-freshclam \
-      msmtp \
-      mailutils \
-      inotify-tools && \
+    wget \
+    dos2unix \
+    clamav \
+    clamav-daemon \
+    clamdscan \
+    clamav-freshclam \
+    msmtp \
+    mailutils \
+    inotify-tools && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/lib/clamav/tmp && \
