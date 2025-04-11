@@ -18,8 +18,8 @@ RUN apt install -y ./clamav-1.0.8.linux.x86_64.deb && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN groupadd -g 1000 clamav && \
-    useradd -u 1000 -g clamav -s /bin/false -d /dev/null clamav && \
+RUN groupadd clamav && \
+    useradd -g clamav -s /bin/false -d /dev/null clamav && \
     mkdir -p /var/lib/clamav && \
     chown -R clamav:clamav /var/lib/clamav && \
     mkdir -p /etc/clamav/ && \
