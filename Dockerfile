@@ -1,8 +1,7 @@
-FROM ubuntu:24.10
+FROM ubuntu:latest
 
-RUN apt update && \
-    apt install -y \
-    wget
+# RUN apt update && \
+#     apt install -y \
     # wget \
     # dos2unix \
     # clamav \
