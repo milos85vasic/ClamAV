@@ -53,17 +53,20 @@ vpn_download() {
   return 1
 }
 
-vpn_download "https://database.clamav.net/main.cvd" || \
+vpn_download "https://db.cn.clamav.net/main.cvd" || \
     vpn_download "https://db.cn.clamav.net/main.cvd" || \
-    vpn_download "https://db.jp.clamav.net/main.cvd"
+    vpn_download "http://clamav.belnet.be/main.cvd" || \
+    vpn_download "http://clamav.by/main.cvd"
 
-vpn_download "https://database.clamav.net/daily.cvd" || \
-    vpn_download "https://db.cn.clamav.net/daily.cvd" || \
-    vpn_download "https://db.jp.clamav.net/daily.cvd"
+vpn_download "https://db.cn.clamav.net/daily.cvd" || \
+    vpn_download "https://db.jp.clamav.net/daily.cvd" || \
+    vpn_download "http://clamav.belnet.be/daily.cvd" || \
+    vpn_download "http://clamav.by/daily.cvd"
 
-vpn_download "https://database.clamav.net/bytecode.cvd" || \
-    vpn_download "https://db.cn.clamav.net/bytecode.cvd" || \
-    vpn_download "https://db.jp.clamav.net/bytecode.cvd"
+vpn_download "https://db.cn.clamav.net/bytecode.cvd" || \
+    vpn_download "https://db.jp.clamav.net/bytecode.cvd" || \
+    vpn_download "http://clamav.belnet.be/bytecode.cvd" || \
+    vpn_download "http://clamav.by/bytecode.cvd"
 
 vpn_download https://ftp.swin.edu.au/sanesecurity/ksp.hdb
 vpn_download https://ftp.swin.edu.au/sanesecurity/ksp.ldb
