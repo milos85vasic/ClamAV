@@ -29,26 +29,25 @@ else
     exit 1
 fi
 
-openvpn --config /etc/openvpn/config.ovpn --auth-user-pass /etc/openvpn/auth.txt --daemon
-
 echo "Waiting for VPN connection..."
 
-while : ; do
+if ! openvpn --config /etc/openvpn/config.ovpn --auth-user-pass /etc/openvpn/auth.txt; then
 
-    if ip a show tun0 >/dev/null 2>&1; then
+    exit 1
+fi
 
-        echo "VPN seems ready"
+if ip a show tun0 >/dev/null 2>&1; then
 
-        if curl --max-time 2 --silent ifconfig.me >/dev/null; then
-            
-            echo "VPN has the internet connection"
-            break
-        fi
+    echo "VPN seems ready"
+
+    if curl --max-time 2 --silent ifconfig.me >/dev/null; then
+        
+        echo "VPN has the internet connection"
+        echo "VPN connected with IP: $(curl -s ifconfig.me)"
+        
+        exit 0
     fi
+fi
 
-    echo "VPN not yet ready"
-    sleep 1
-done
-
-echo "VPN connected with IP: $(curl -s ifconfig.me)"
-exec "$@"
+echo "VPN failed to initialize"
+exit 1
