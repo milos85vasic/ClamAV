@@ -16,11 +16,13 @@ RUN apt update && \
     mailutils \
     inotify-tools
 
-COPY Scripts/VPN.sh /VPN.sh
+COPY Scripts/ /Scripts/
 COPY config.ovpn /etc/openvpn/config.ovpn
 
+RUN chmod +x /Scripts/*.sh
+
 RUN cat /etc/openvpn/config.ovpn && test -e /etc/openvpn/config.ovpn
-RUN chmod +x /VPN.sh && sh /VPN.sh
+RUN sh /Scripts/VPN.sh
 RUN wget https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb
     
 RUN apt install -y ./clamav-1.0.8.linux.x86_64.deb && \
@@ -58,10 +60,6 @@ RUN clamscan --debug | grep Kaspersky && \
     clamscan --version && echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
     clamscan test.txt && \
     rm test.txt
-
-COPY Scripts/ /Scripts/
-
-RUN chmod +x /Scripts/*.sh
 
 VOLUME /etc/msmtprc
 VOLUME /var/lib/clamav

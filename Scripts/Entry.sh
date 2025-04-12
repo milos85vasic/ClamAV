@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if ! sh /VPN.sh; then
+if ! sh /Scripts/VPN.sh; then
 
     exit 1
 fi
