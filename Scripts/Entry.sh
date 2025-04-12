@@ -12,9 +12,9 @@ echo "Forcing traffic through the VPN"
 
 OLD_GW=$(ip route show default | awk '{print $3}')
 
-ip route del default 2>/dev/null || true
+sudo ip route del default 2>/dev/null || true
 
-if ! ip route add default dev tun0; then
+if ! sudo ip route add default dev tun0; then
   
     echo "Failed to set VPN as default route"
     exit 1
@@ -22,7 +22,7 @@ fi
 
 echo "nameserver 1.1.1.1" > /etc/resolv.conf
 
-echo "VPN routing configured: " && ip route show default
+echo "VPN routing configured: " && ip route show
 
 vpn_download() {
   
@@ -86,7 +86,7 @@ cp *.cvd /var/lib/clamav/ && \
     echo "Checks 24" >> /usr/local/etc/freshclam.conf && \
     echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
     
-sudo -u clamav freshclam  --interface=tun0 --verbose && \
+sudo -u clamav freshclam --verbose && \
     sudo -u clamav clamscan --debug --infected --no-summary /usr/local/share/clamav/ && \
     sudo -u clamav clamscan --version
 
