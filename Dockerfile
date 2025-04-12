@@ -24,12 +24,7 @@ RUN groupadd clamav && \
     chown -R clamav:clamav /var/lib/clamav && \
     mkdir -p /etc/clamav/ && \
     chown -R clamav:clamav /etc/clamav && \
-    touch /usr/local/etc/freshclam.conf && \
-    echo "DatabaseMirror http://ftp.swin.edu.au/sanesecurity" > /usr/local/etc/freshclam.conf && \
-    echo "DatabaseMirror http://clamavdb.heanet.ie/sanesecurity" > /usr/local/etc/freshclam.conf && \
-    echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbl.ndb" >> /usr/local/etc/freshclam.conf && \
-    echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
-    echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/ksp.hdb" >> /usr/local/etc/freshclam.conf
+    touch /usr/local/etc/freshclam.conf
 
 RUN wget https://database.clamav.net/main.cvd
 RUN wget https://database.clamav.net/daily.cvd
@@ -37,8 +32,17 @@ RUN wget https://ftp.swin.edu.au/sanesecurity/ksp.hdb
 RUN wget https://ftp.swin.edu.au/sanesecurity/ksp.ldb
 
 RUN cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
-    sudo chown clamav:clamav /var/lib/clamav/*
-    
+    chown clamav:clamav /var/lib/clamav/* && \
+    echo "DatabaseDirectory /var/lib/clamav" > /usr/local/etc/freshclam.conf && \
+    echo "DatabaseMirror file:///var/lib/clamav" > /usr/local/etc/freshclam.conf && \
+    echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
+    echo "Checks 24" > /usr/local/etc/freshclam.conf 
+    # echo "DatabaseMirror http://ftp.swin.edu.au/sanesecurity" > /usr/local/etc/freshclam.conf && \
+    # echo "DatabaseMirror http://clamavdb.heanet.ie/sanesecurity" > /usr/local/etc/freshclam.conf && \
+    # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbl.ndb" >> /usr/local/etc/freshclam.conf && \
+    # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
+    # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/ksp.hdb" >> /usr/local/etc/freshclam.conf
+
 RUN freshclam --verbose && \
     grep "Kaspersky" /var/lib/clamav/*.ndb && \
     clamscan --version && echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
