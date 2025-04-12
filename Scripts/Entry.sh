@@ -9,11 +9,19 @@ done
 
 echo "Forcing traffic through the VPN"
 
+OLD_GW=$(ip route show default | awk '{print $3}')
+
+ip route del default 2>/dev/null || true
+
 if ! ip route add default dev tun0; then
   
-  echo "Failed to set default route through VPN"
-  exit 1
+    echo "Failed to set VPN as default route"
+    exit 1
 fi
+
+echo "nameserver 1.1.1.1" > /etc/resolv.conf
+
+echo "VPN routing configured: " && ip route show default
 
 vpn_download() {
   
