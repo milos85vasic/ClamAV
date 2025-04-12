@@ -1,6 +1,17 @@
 #!/bin/bash
 set -e
 
+if test -e /etc/openvpn/config.ovpn; then
+
+    echo "The '/etc/openvpn/config.ovpn' has been found:" && \
+        cat /etc/openvpn/config.ovpn
+
+else
+
+    echo "ERROR: There is no '/etc/openvpn/config.ovpn' found"
+    exit 1
+fi
+
 echo "VPN user: '$VPN_USER'"
 echo "VPN pass: '$VPN_PASSWORD'"
 
