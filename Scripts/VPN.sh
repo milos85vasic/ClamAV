@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 echo "${VPN_USER}" > /etc/openvpn/auth.txt
 echo "${VPN_PASSWORD}" >> /etc/openvpn/auth.txt
