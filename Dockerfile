@@ -33,6 +33,9 @@ RUN groupadd clamav && \
 
 RUN freshclam --verbose
 RUN grep "Kaspersky" /var/lib/clamav/*.ndb
+RUN clamscan --version && echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
+    clamscan test.txt && \
+    rm test.txt
 
 COPY Scripts/ /Scripts/
 
