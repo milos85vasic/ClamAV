@@ -4,6 +4,7 @@ set -e
 sh /Scripts/VPN.sh
 
 while ! ip addr show tun0 >/dev/null 2>&1; do
+  
   sleep 1
 done
 
@@ -68,7 +69,8 @@ cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
     echo "DatabaseDirectory /var/lib/clamav" > /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror file:///var/lib/clamav" > /usr/local/etc/freshclam.conf && \
     echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
-    echo "Checks 24" > /usr/local/etc/freshclam.conf 
+    echo "Checks 24" > /usr/local/etc/freshclam.conf && \
+    echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
     # echo "DatabaseMirror http://ftp.swin.edu.au/sanesecurity" > /usr/local/etc/freshclam.conf && \
     # echo "DatabaseMirror http://clamavdb.heanet.ie/sanesecurity" > /usr/local/etc/freshclam.conf && \
     # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbl.ndb" >> /usr/local/etc/freshclam.conf && \
@@ -140,10 +142,5 @@ echo "TODO: Further"
 #     echo "Script ScanAndAlert.sh not found at $SCRIPT"
 #     exit 1
 # fi
-
-if ! test -e /var/log/clamav/clamav.log; then
-    
-    touch /var/log/clamav/clamav.log
-fi
 
 tail -f /var/log/clamav/clamav.log

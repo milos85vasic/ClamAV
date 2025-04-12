@@ -35,7 +35,11 @@ RUN groupadd clamav && \
     chown -R clamav:clamav /var/lib/clamav && \
     mkdir -p /etc/clamav/ && \
     chown -R clamav:clamav /etc/clamav && \
-    touch /usr/local/etc/freshclam.conf
+    touch /usr/local/etc/freshclam.conf && \
+    mkdir -p /var/log/clamav && \
+    chown -R clamav:clamav /var/log/clamav && \
+    touch /var/log/clamav/clamav.log && \
+    chown clamav:clamav /var/log/clamav/clamav.log
 
 VOLUME /scandir
 VOLUME /quarantine
