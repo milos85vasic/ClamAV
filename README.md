@@ -5,29 +5,6 @@ Anti-virus monitors and scans the directory mounted to the following path: `/mnt
 Communication with update server is performed throught the mandatory VPN connection.
 The `config.ovpn` for VPN has to be provided and credentials env. variables set.
 
-## Project structure
-
-```
-~
-├── docker-compose.yml
-├── Dockerfile
-├── clamav-monitor.service
-├── Install.sh
-├── LICENSE
-├── README.md
-├── README.pdf
-├── RealtimeMonitor.sh
-├── RunInBackground.sh
-├── StartService.sh
-├── Update.sh
-└── Scripts/
-    ├── Entry.sh
-    ├── RepairDb.sh
-    ├── GenerateMsmtp.sh
-    ├── ScanAndAlert.sh
-    └── Schedule.sh
-```
-
 ## Setup
 
 Set the environment variables to set on host machine:
