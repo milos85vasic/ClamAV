@@ -31,9 +31,14 @@ RUN groupadd clamav && \
     echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/ksp.hdb" >> /usr/local/etc/freshclam.conf
 
-RUN freshclam --verbose
-RUN grep "Kaspersky" /var/lib/clamav/*.ndb
-RUN clamscan --version && echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
+RUN wget https://database.clamav.net/main.cvd
+RUN wget https://database.clamav.net/daily.cvd
+RUN wget https://ftp.swin.edu.au/sanesecurity/ksp.hdb
+RUN wget https://ftp.swin.edu.au/sanesecurity/ksp.ldb
+
+RUN freshclam --verbose && \
+    grep "Kaspersky" /var/lib/clamav/*.ndb && \
+    clamscan --version && echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
     clamscan test.txt && \
     rm test.txt
 
