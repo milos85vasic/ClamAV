@@ -39,7 +39,9 @@ RUN groupadd clamav && \
     mkdir -p /var/log/clamav && \
     chown -R clamav:clamav /var/log/clamav && \
     touch /var/log/clamav/clamav.log && \
-    chown clamav:clamav /var/log/clamav/clamav.log
+    chown clamav:clamav /var/log/clamav/clamav.log && \
+    mkdir -p /usr/local/share/clamav && \
+    chown -R clamav:clamav /usr/local/share/clamav
 
 VOLUME /scandir
 VOLUME /quarantine
