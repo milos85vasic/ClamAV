@@ -53,26 +53,26 @@ vpn_download() {
   return 1
 }
 
-vpn_download "https://db.cn.clamav.net/main.cvd" || \
-    vpn_download "https://db.cn.clamav.net/main.cvd" || \
-    vpn_download "http://clamav.belnet.be/main.cvd" || \
-    vpn_download "http://clamav.by/main.cvd"
+# vpn_download "https://db.cn.clamav.net/main.cvd" || \
+#     vpn_download "https://db.cn.clamav.net/main.cvd" || \
+#     vpn_download "http://clamav.belnet.be/main.cvd" || \
+#     vpn_download "http://clamav.by/main.cvd"
 
 # vpn_download "https://db.cn.clamav.net/daily.cvd" || \
 #     vpn_download "https://db.jp.clamav.net/daily.cvd" || \
 #     vpn_download "http://clamav.belnet.be/daily.cvd" || \
 #     vpn_download "http://clamav.by/daily.cvd"
 
-vpn_download "https://db.cn.clamav.net/bytecode.cvd" || \
-    vpn_download "https://db.jp.clamav.net/bytecode.cvd" || \
-    vpn_download "http://clamav.belnet.be/bytecode.cvd" || \
-    vpn_download "http://clamav.by/bytecode.cvd"
+# vpn_download "https://db.cn.clamav.net/bytecode.cvd" || \
+#     vpn_download "https://db.jp.clamav.net/bytecode.cvd" || \
+#     vpn_download "http://clamav.belnet.be/bytecode.cvd" || \
+#     vpn_download "http://clamav.by/bytecode.cvd"
 
-cp *.cvd /var/lib/clamav/ && \
-    chown clamav:clamav /var/lib/clamav/* && \
-    cp *.cvd /usr/local/share/clamav/ && \
-    chown clamav:clamav /usr/local/share/clamav/* && \
-    echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
+# cp *.cvd /var/lib/clamav/ && \
+#     chown clamav:clamav /var/lib/clamav/* && \
+#     cp *.cvd /usr/local/share/clamav/ && \
+#     chown clamav:clamav /usr/local/share/clamav/* && \
+echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
     echo "DatabaseDirectory /usr/local/share/clamav" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror https://db.cn.clamav.net" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://db.by.clamav.net" >> /usr/local/etc/freshclam.conf && \
@@ -89,6 +89,12 @@ cp *.cvd /var/lib/clamav/ && \
 sudo -u clamav freshclam --verbose && \
     sudo -u clamav clamscan --debug --infected --no-summary /usr/local/share/clamav/ && \
     sudo -u clamav clamscan --version
+
+if ! sudo -u clamav clamscan --debug | grep "Loaded signatures"; then
+    
+    echo "ERROR: No loaded signatures"
+    exit 1
+fi
 
 echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && cat test.txt && \
     sudo -u clamav clamscan test.txt && \
