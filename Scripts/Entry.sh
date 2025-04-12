@@ -51,8 +51,7 @@ if sudo -u clamav clamscan --debug --infected --no-summary test.txt | grep -q "E
     
     echo "✅ EICAR test file detected (ClamAV working)"
     rm -f test.txt
-    exit 0
-
+    
 else
     
     echo "❌ ERROR: EICAR test file NOT detected (ClamAV misconfigured)"
