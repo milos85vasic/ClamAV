@@ -68,9 +68,6 @@ vpn_download "https://db.cn.clamav.net/bytecode.cvd" || \
     vpn_download "http://clamav.belnet.be/bytecode.cvd" || \
     vpn_download "http://clamav.by/bytecode.cvd"
 
-vpn_download https://ftp.swin.edu.au/sanesecurity/ksp.hdb
-vpn_download https://ftp.swin.edu.au/sanesecurity/ksp.ldb
-
 cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
     chown clamav:clamav /var/lib/clamav/* && \
     cp *.cvd *.hdb *.ldb /usr/local/share/clamav/ && \
