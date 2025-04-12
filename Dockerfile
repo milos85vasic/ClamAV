@@ -36,6 +36,8 @@ RUN wget https://database.clamav.net/daily.cvd
 RUN wget https://ftp.swin.edu.au/sanesecurity/ksp.hdb
 RUN wget https://ftp.swin.edu.au/sanesecurity/ksp.ldb
 
+RUN cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
+    sudo chown clamav:clamav /var/lib/clamav/*
 RUN freshclam --verbose && \
     grep "Kaspersky" /var/lib/clamav/*.ndb && \
     clamscan --version && echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
