@@ -42,16 +42,18 @@ sudo -u clamav freshclam --verbose && \
     sudo -u clamav clamscan --debug --infected --no-summary /usr/local/share/clamav/ && \
     sudo -u clamav clamscan --version
 
-if ! sudo -u clamav clamscan --debug | grep "Loaded signatures"; then
-    
-    echo "ERROR: No loaded signatures"
+echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && cat test.txt
+
+if sudo -u clamav clamscan --debug --infected --no-summary test.txt; then
+
+    echo "EICAR test file detected" && rm -f test.txt
+
+else
+
+    echo "ERROR: EICAR test file not detected"
     exit 1
 fi
-
-echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && cat test.txt && \
-    sudo -u clamav clamscan test.txt && \
-    rm test.txt
-
+     
 echo "TODO: Further"
 
 # validate_cvd() {
