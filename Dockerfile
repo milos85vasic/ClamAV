@@ -18,7 +18,7 @@ RUN apt update && \
 
 COPY Scripts/VPN.sh /usr/local/bin/
 
-RUN test -e /etc/openvpn/config.ovpn
+RUN cat /etc/openvpn/config.ovpn && test -e /etc/openvpn/config.ovpn
 RUN chmod +x /usr/local/bin/VPN.sh && sh /vpn.sh
 RUN wget https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb
     
