@@ -13,6 +13,8 @@ RUN apt update && \
     mailutils \
     inotify-tools
 
+RUN test -e /etc/openvpn/config.ovpn
+
 RUN echo '#!/bin/sh\n\
     if [ -f "/etc/openvpn/auth.txt" ]; then\n\
       openvpn --config /etc/openvpn/config.ovpn --auth-user-pass /etc/openvpn/auth.txt --daemon\n\
