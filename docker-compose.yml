@@ -12,10 +12,10 @@ services:
       - VPN_USER=${VPN_USER}
       - VPN_PASSWORD=${VPN_PASSWORD}
     volumes:
-      - ./clamav_db:/var/lib/clamav
+      - ./Scripts:/Scripts
       - /mnt/DATA:/scandir:ro
       - ./quarantine:/quarantine
-      - ./Scripts:/Scripts
+      - ./clamav_db:/var/lib/clamav
     cap_add:
       - NET_ADMIN
     restart: unless-stopped

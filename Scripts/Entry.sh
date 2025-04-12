@@ -1,67 +1,89 @@
 #!/bin/bash
 set -e
 
-if ! sh /Scripts/VPN.sh; then
+sh /Scripts/VPN.sh
 
-    exit 1
-fi
+wget https://database.clamav.net/main.cvd
+wget https://database.clamav.net/daily.cvd
+wget https://ftp.swin.edu.au/sanesecurity/ksp.hdb
+wget https://ftp.swin.edu.au/sanesecurity/ksp.ldb
 
-validate_cvd() {
+cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
+    chown clamav:clamav /var/lib/clamav/* && \
+    echo "DatabaseDirectory /var/lib/clamav" > /usr/local/etc/freshclam.conf && \
+    echo "DatabaseMirror file:///var/lib/clamav" > /usr/local/etc/freshclam.conf && \
+    echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
+    echo "Checks 24" > /usr/local/etc/freshclam.conf 
+    # echo "DatabaseMirror http://ftp.swin.edu.au/sanesecurity" > /usr/local/etc/freshclam.conf && \
+    # echo "DatabaseMirror http://clamavdb.heanet.ie/sanesecurity" > /usr/local/etc/freshclam.conf && \
+    # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbl.ndb" >> /usr/local/etc/freshclam.conf && \
+    # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
+    # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/ksp.hdb" >> /usr/local/etc/freshclam.conf
+
+# freshclam --verbose && \
+clamscan --debug | grep Kaspersky && \
+    clamscan --version && echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
+    clamscan test.txt && \
+    rm test.txt
+
+echo "TODO: Further"
+
+# validate_cvd() {
     
-    if ! clamscan --debug --infected --no-summary "$1"; then
+#     if ! clamscan --debug --infected --no-summary "$1"; then
     
-        echo "Corrupted CVD detected: $(basename "$1")" >&2
-        rm -f "$1"
-        return 1
-    fi
-}
+#         echo "Corrupted CVD detected: $(basename "$1")" >&2
+#         rm -f "$1"
+#         return 1
+#     fi
+# }
 
-mkdir -p /var/lib/clamav/tmp
-chown -R clamav:clamav /var/lib/clamav
-chmod -R 775 /var/lib/clamav
+# mkdir -p /var/lib/clamav/tmp
+# chown -R clamav:clamav /var/lib/clamav
+# chmod -R 775 /var/lib/clamav
 
-for cvd in /var/lib/clamav/*.cvd; do
+# for cvd in /var/lib/clamav/*.cvd; do
     
-    [ -f "$cvd" ] && validate_cvd "$cvd"
-done
+#     [ -f "$cvd" ] && validate_cvd "$cvd"
+# done
 
-if [ ! -f "/var/lib/clamav/main.cvd" ] || \
-   [ ! -f "/var/lib/clamav/daily.cvd" ] || \
-   [ ! -f "/var/lib/clamav/bytecode.cvd" ]; then
+# if [ ! -f "/var/lib/clamav/main.cvd" ] || \
+#    [ ! -f "/var/lib/clamav/daily.cvd" ] || \
+#    [ ! -f "/var/lib/clamav/bytecode.cvd" ]; then
     
-    echo "Downloading fresh databases..."
-    sudo -u clamav freshclam --stdout --no-warnings
-fi
+#     echo "Downloading fresh databases..."
+#     sudo -u clamav freshclam --stdout --no-warnings
+# fi
 
-sudo -u clamav freshclam --daemon &
-sudo -u clamav clamd &
+# sudo -u clamav freshclam --daemon &
+# sudo -u clamav clamd &
 
-while ! [ -S /var/run/clamav/clamd.ctl ]; do sleep 1; done
+# while ! [ -S /var/run/clamav/clamd.ctl ]; do sleep 1; done
 
-cat <<EOF > /etc/msmtprc
-account default
-host ${SMTP_HOST}
-port ${SMTP_PORT}
-from ${SMTP_USER}
-auth on
-user ${SMTP_USER}
-password ${SMTP_PASSWORD}
-tls on
-tls_starttls on
-logfile /var/log/msmtp.log
-EOF
+# cat <<EOF > /etc/msmtprc
+# account default
+# host ${SMTP_HOST}
+# port ${SMTP_PORT}
+# from ${SMTP_USER}
+# auth on
+# user ${SMTP_USER}
+# password ${SMTP_PASSWORD}
+# tls on
+# tls_starttls on
+# logfile /var/log/msmtp.log
+# EOF
 
-SCRIPT="/Scripts/ScanAndAlert.sh"
+# SCRIPT="/Scripts/ScanAndAlert.sh"
 
-if test -e "$SCRIPT"; then
+# if test -e "$SCRIPT"; then
 
-    echo "Script ScanAndAlert.sh found at $SCRIPT"
-    exec "$SCRIPT" &
+#     echo "Script ScanAndAlert.sh found at $SCRIPT"
+#     exec "$SCRIPT" &
 
-else
+# else
     
-    echo "Script ScanAndAlert.sh not found at $SCRIPT"
-    exit 1
-fi
+#     echo "Script ScanAndAlert.sh not found at $SCRIPT"
+#     exit 1
+# fi
 
 tail -f /var/log/clamav/clamav.log
