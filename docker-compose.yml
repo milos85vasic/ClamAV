@@ -9,11 +9,14 @@ services:
       - SMTP_USER=${SMTP_USER}
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - ALERT_EMAIL=${ALERT_EMAIL}
+      - VPN_USER=${VPN_USER}
+      - VPN_PASSWORD=${VPN_PASSWORD}
     volumes:
       - ./clamav_db:/var/lib/clamav
       - /mnt/DATA:/scandir:ro
       - ./quarantine:/quarantine
       - ./Scripts:/Scripts
+      - ./config.ovpn:/etc/openvpn/config.ovpn
     cap_add:
       - NET_ADMIN
     restart: unless-stopped

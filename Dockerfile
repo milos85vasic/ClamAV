@@ -12,6 +12,18 @@ RUN apt update && \
     msmtp \
     mailutils \
     inotify-tools
+
+RUN echo '#!/bin/sh\n\
+    if [ -f "/etc/openvpn/auth.txt" ]; then\n\
+      openvpn --config /etc/openvpn/config.ovpn --auth-user-pass /etc/openvpn/auth.txt --daemon\n\
+    else\n\
+      echo "$${VPN_USER}\n$${VPN_PASSWORD}" > /etc/openvpn/auth.txt\n\
+      openvpn --config /etc/openvpn/config.ovpn --auth-user-pass /etc/openvpn/auth.txt --daemon\n\
+    fi\n\
+    sleep 5\n\
+    exec "$@"' > /vpn.sh && chmod +x /vpn.sh
+
+RUN sh /vpn.sh
     
 RUN wget https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb
     
