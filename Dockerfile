@@ -4,6 +4,8 @@ RUN apt update && \
     apt install -y --no-install-recommends \
     sudo \
     wget \
+    openconnect \
+    iptables \
     gnupg \
     dos2unix \
     ca-certificates \
