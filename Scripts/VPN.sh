@@ -15,8 +15,9 @@ fi
 echo "VPN user: '$VPN_USER'"
 echo "VPN pass: '$VPN_PASSWORD'"
 
-echo "$VPN_USER" > /etc/openvpn/auth.txt
-echo "$VPN_PASSWORD" >> /etc/openvpn/auth.txt
+echo "$VPN_USER" > /etc/openvpn/auth.txt && \
+    echo "$VPN_PASSWORD" >> /etc/openvpn/auth.txt && \
+    chmod 600 /etc/openvpn/auth.txt
     
 if test -e /etc/openvpn/auth.txt; then
 
