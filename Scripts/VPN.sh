@@ -26,12 +26,16 @@ while : ; do
 
     if ip a show tun0 >/dev/null 2>&1; then
 
+        echo "VPN seems ready"
+
         if curl --max-time 2 --silent ifconfig.me >/dev/null; then
             
+            echo "VPN has the internet connection"
             break
         fi
     fi
 
+    echo "VPN not yet ready"
     sleep 1
 done
 
