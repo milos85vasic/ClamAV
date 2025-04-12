@@ -16,7 +16,6 @@ services:
       - /mnt/DATA:/scandir:ro
       - ./quarantine:/quarantine
       - ./Scripts:/Scripts
-      - ./config.ovpn:/etc/openvpn/config.ovpn
     cap_add:
       - NET_ADMIN
     restart: unless-stopped

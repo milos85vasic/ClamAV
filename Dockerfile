@@ -17,6 +17,7 @@ RUN apt update && \
     inotify-tools
 
 COPY Scripts/VPN.sh /usr/local/bin/
+COPY config.ovpn /etc/openvpn/config.ovpn
 
 RUN cat /etc/openvpn/config.ovpn && test -e /etc/openvpn/config.ovpn
 RUN chmod +x /usr/local/bin/VPN.sh && sh /vpn.sh
