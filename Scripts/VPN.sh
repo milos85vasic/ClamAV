@@ -33,6 +33,7 @@ echo "Waiting for VPN connection..."
 
 if ! openvpn --config /etc/openvpn/config.ovpn --auth-user-pass /etc/openvpn/auth.txt; then
 
+    echo "VPN failed"
     exit 1
 fi
 
