@@ -24,54 +24,6 @@ echo "nameserver 1.1.1.1" > /etc/resolv.conf
 
 echo "VPN routing configured: " && ip route show
 
-vpn_download() {
-  
-  local url=$1
-  local retries=3
-  local timeout=15
-
-  echo "Downloading: '$url'"
-  
-  while [ $retries -gt 0 ]; do
-  
-    if curl --interface tun0 \
-            --connect-timeout $timeout \
-            --silent --show-error \
-            "$url" --output "${url##*/}"; then
-
-        echo "Downloaded: '$url'"
-
-        return 0
-    fi
-    
-    retries=$((retries-1))
-    sleep 5
-
-  done
-
-  echo "Failed to download: '$url'"
-  return 1
-}
-
-# vpn_download "https://db.cn.clamav.net/main.cvd" || \
-#     vpn_download "https://db.cn.clamav.net/main.cvd" || \
-#     vpn_download "http://clamav.belnet.be/main.cvd" || \
-#     vpn_download "http://clamav.by/main.cvd"
-
-# vpn_download "https://db.cn.clamav.net/daily.cvd" || \
-#     vpn_download "https://db.jp.clamav.net/daily.cvd" || \
-#     vpn_download "http://clamav.belnet.be/daily.cvd" || \
-#     vpn_download "http://clamav.by/daily.cvd"
-
-# vpn_download "https://db.cn.clamav.net/bytecode.cvd" || \
-#     vpn_download "https://db.jp.clamav.net/bytecode.cvd" || \
-#     vpn_download "http://clamav.belnet.be/bytecode.cvd" || \
-#     vpn_download "http://clamav.by/bytecode.cvd"
-
-# cp *.cvd /var/lib/clamav/ && \
-#     chown clamav:clamav /var/lib/clamav/* && \
-#     cp *.cvd /usr/local/share/clamav/ && \
-#     chown clamav:clamav /usr/local/share/clamav/* && \
 echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
     echo "DatabaseDirectory /usr/local/share/clamav" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror https://db.cn.clamav.net" >> /usr/local/etc/freshclam.conf && \
