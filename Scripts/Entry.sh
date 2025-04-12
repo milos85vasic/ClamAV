@@ -42,15 +42,24 @@ sudo -u clamav freshclam --verbose && \
     sudo -u clamav clamscan --debug --infected --no-summary /usr/local/share/clamav/ && \
     sudo -u clamav clamscan --version
 
-echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && cat test.txt
+echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt
+echo "Test file content:"
+cat test.txt
+echo ""
 
-if sudo -u clamav clamscan --debug --infected --no-summary test.txt; then
-
-    echo "EICAR test file detected" && rm -f test.txt
+if sudo -u clamav clamscan --debug --infected --no-summary test.txt | grep -q "EICAR-Test-File"; then
+    
+    echo "✅ EICAR test file detected (ClamAV working)"
+    rm -f test.txt
+    exit 0
 
 else
-
-    echo "ERROR: EICAR test file not detected"
+    
+    echo "❌ ERROR: EICAR test file NOT detected (ClamAV misconfigured)"
+    
+    echo "Debug info:"
+    sudo -u clamav clamscan --version
+    ls -la /var/lib/clamav/
     exit 1
 fi
      
