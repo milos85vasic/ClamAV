@@ -43,8 +43,8 @@ RUN cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
     # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
     # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/ksp.hdb" >> /usr/local/etc/freshclam.conf
 
-RUN freshclam --verbose && \
-    grep "Kaspersky" /var/lib/clamav/*.ndb && \
+# RUN freshclam --verbose && \
+RUN clamscan --debug | grep Kaspersky && \
     clamscan --version && echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
     clamscan test.txt && \
     rm test.txt
