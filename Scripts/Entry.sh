@@ -3,10 +3,51 @@ set -e
 
 sh /Scripts/VPN.sh
 
-wget https://database.clamav.net/main.cvd
-wget https://database.clamav.net/daily.cvd
-wget https://ftp.swin.edu.au/sanesecurity/ksp.hdb
-wget https://ftp.swin.edu.au/sanesecurity/ksp.ldb
+while ! ip addr show tun0 >/dev/null 2>&1; do
+  sleep 1
+done
+
+echo "Forcing traffic through the VPN"
+
+if ! ip route add default dev tun0; then
+  
+  echo "Failed to set default route through VPN"
+  exit 1
+fi
+
+vpn_download() {
+  
+  local url=$1
+  local retries=3
+  local timeout=15
+  
+  while [ $retries -gt 0 ]; do
+  
+    if curl --interface tun0 \
+            --connect-timeout $timeout \
+            --silent --show-error \
+            "$url" --output "${url##*/}"; then
+
+      return 0
+    fi
+    
+    retries=$((retries-1))
+    sleep 5
+
+  done
+  return 1
+}
+
+vpn_download "https://database.clamav.net/main.cvd" || \
+    vpn_download "https://db.cn.clamav.net/main.cvd" || \
+    vpn_download "https://db.jp.clamav.net/main.cvd"
+
+vpn_download "https://database.clamav.net/daily.cvd" || \
+    vpn_download "https://db.cn.clamav.net/daily.cvd" || \
+    vpn_download "https://db.jp.clamav.net/daily.cvd"
+
+vpn_download https://ftp.swin.edu.au/sanesecurity/ksp.hdb
+vpn_download https://ftp.swin.edu.au/sanesecurity/ksp.ldb
 
 cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
     chown clamav:clamav /var/lib/clamav/* && \
