@@ -25,14 +25,14 @@ RUN groupadd clamav && \
     mkdir -p /etc/clamav/ && \
     chown -R clamav:clamav /etc/clamav && \
     touch /usr/local/etc/freshclam.conf && \
-    echo "DatabaseMirror db.cn.clamav.net" > /usr/local/etc/freshclam.conf && \
-    echo "DatabaseMirror db.local.clamav.net" >> /usr/local/etc/freshclam.conf && \
-    echo "Checks 4" >> /usr/local/etc/freshclam.conf && \
-    echo "MaxAttempts 3" >> /usr/local/etc/freshclam.conf && \
-    echo "ScriptedUpdates no" >> /usr/local/etc/freshclam.conf
+    echo "DatabaseMirror http://ftp.swin.edu.au/sanesecurity" > /usr/local/etc/freshclam.conf && \
+    echo "DatabaseMirror http://clamavdb.heanet.ie/sanesecurity" > /usr/local/etc/freshclam.conf && \
+    echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbl.ndb" >> /usr/local/etc/freshclam.conf && \
+    echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
+    echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/ksp.hdb" >> /usr/local/etc/freshclam.conf
 
-# FIXME: Use VPN
-RUN freshclam
+RUN freshclam --verbose
+RUN grep "Kaspersky" /var/lib/clamav/*.ndb
 
 COPY Scripts/ /Scripts/
 
