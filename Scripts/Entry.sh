@@ -68,9 +68,9 @@ vpn_download "https://db.cn.clamav.net/bytecode.cvd" || \
     vpn_download "http://clamav.belnet.be/bytecode.cvd" || \
     vpn_download "http://clamav.by/bytecode.cvd"
 
-cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
+cp *.cvd /var/lib/clamav/ && \
     chown clamav:clamav /var/lib/clamav/* && \
-    cp *.cvd *.hdb *.ldb /usr/local/share/clamav/ && \
+    cp *.cvd /usr/local/share/clamav/ && \
     chown clamav:clamav /usr/local/share/clamav/* && \
     echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
     echo "DatabaseDirectory /usr/local/share/clamav" >> /usr/local/etc/freshclam.conf && \
