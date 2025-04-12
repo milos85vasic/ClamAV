@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-. /etc/environment
+source /etc/environment
 
 echo "VPN user: '$VPN_USER'"
 echo "VPN pass: '$VPN_PASSWORD'"

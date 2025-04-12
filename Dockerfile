@@ -4,6 +4,7 @@ RUN apt update && \
     apt install -y --no-install-recommends \
     sudo \
     wget \
+    source \
     openconnect \
     openvpn \
     curl \
