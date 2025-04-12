@@ -69,7 +69,7 @@ cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
     cp *.cvd *.hdb *.ldb /usr/local/share/clamav/ && \
     chown clamav:clamav /usr/local/share/clamav/* && \
     echo "DatabaseDirectory /usr/local/share/clamav" > /usr/local/etc/freshclam.conf && \
-    echo "DatabaseMirror file:///var/lib/clamav" >> /usr/local/etc/freshclam.conf && \
+    echo "DatabaseMirror file:///usr/local/share/clamav" >> /usr/local/etc/freshclam.conf && \
     echo "ScriptedUpdates no" >> /usr/local/etc/freshclam.conf && \
     echo "Checks 24" >> /usr/local/etc/freshclam.conf && \
     echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
