@@ -16,12 +16,10 @@ RUN apt update && \
     mailutils \
     inotify-tools
 
-RUN test -e /etc/openvpn/config.ovpn
-
 COPY Scripts/VPN.sh /usr/local/bin/
 
+RUN test -e /etc/openvpn/config.ovpn
 RUN chmod +x /usr/local/bin/VPN.sh && sh /vpn.sh
-    
 RUN wget https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb
     
 RUN apt install -y ./clamav-1.0.8.linux.x86_64.deb && \
