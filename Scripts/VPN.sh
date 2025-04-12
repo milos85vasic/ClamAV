@@ -55,5 +55,5 @@ while : ; do
     sleep 1
 done
 
-echo "VPN connected with IP: $(curl -s ifconfig.me)"
+echo "VPN connected"
 exec "$@"
