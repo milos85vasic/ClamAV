@@ -141,4 +141,9 @@ echo "TODO: Further"
 #     exit 1
 # fi
 
+if ! test -e /var/log/clamav/clamav.log; then
+    
+    touch /var/log/clamav/clamav.log
+fi
+
 tail -f /var/log/clamav/clamav.log
