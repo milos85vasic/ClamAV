@@ -20,4 +20,7 @@ services:
       - NET_ADMIN
     devices:
       - /dev/net/tun
+    network_mode: "service:vpn"
+    depends_on:
+      - vpn
     restart: unless-stopped

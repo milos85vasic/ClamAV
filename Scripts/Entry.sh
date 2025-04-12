@@ -72,20 +72,21 @@ cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
     chown clamav:clamav /var/lib/clamav/* && \
     cp *.cvd *.hdb *.ldb /usr/local/share/clamav/ && \
     chown clamav:clamav /usr/local/share/clamav/* && \
-    echo "DatabaseDirectory /usr/local/share/clamav" > /usr/local/etc/freshclam.conf && \
+    echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
+    echo "DatabaseDirectory /usr/local/share/clamav" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror https://db.cn.clamav.net" >> /usr/local/etc/freshclam.conf && \
+    echo "DatabaseMirror http://db.by.clamav.net" >> /usr/local/etc/freshclam.conf && \
+    echo "DatabaseMirror http://db.kz.clamav.net" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://clamav.belnet.be" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://clamav.by" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://ftp.swin.edu.au/sanesecurity" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://clamavdb.heanet.ie/sanesecurity" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbl.ndb" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
-    echo "ScriptedUpdates no" >> /usr/local/etc/freshclam.conf && \
     echo "Checks 24" >> /usr/local/etc/freshclam.conf && \
     echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
     
-
-sudo -u clamav freshclam --verbose && \
+sudo -u clamav freshclam  --interface=tun0 --verbose && \
     sudo -u clamav clamscan --debug --infected --no-summary /usr/local/share/clamav/ && \
     sudo -u clamav clamscan --version
 
