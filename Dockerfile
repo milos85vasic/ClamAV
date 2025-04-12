@@ -5,6 +5,9 @@ RUN apt update && \
     sudo \
     wget \
     openconnect \
+    openvpn \
+    curl \
+    iproute2 \
     iptables \
     gnupg \
     dos2unix \
@@ -15,17 +18,9 @@ RUN apt update && \
 
 RUN test -e /etc/openvpn/config.ovpn
 
-RUN echo '#!/bin/sh\n\
-    if [ -f "/etc/openvpn/auth.txt" ]; then\n\
-      openvpn --config /etc/openvpn/config.ovpn --auth-user-pass /etc/openvpn/auth.txt --daemon\n\
-    else\n\
-      echo "$${VPN_USER}\n$${VPN_PASSWORD}" > /etc/openvpn/auth.txt\n\
-      openvpn --config /etc/openvpn/config.ovpn --auth-user-pass /etc/openvpn/auth.txt --daemon\n\
-    fi\n\
-    sleep 5\n\
-    exec "$@"' > /vpn.sh && chmod +x /vpn.sh
+COPY Scripts/VPN.sh /usr/local/bin/
 
-RUN sh /vpn.sh
+RUN chmod +x /usr/local/bin/VPN.sh && sh /vpn.sh
     
 RUN wget https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb
     

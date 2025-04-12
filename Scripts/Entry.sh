@@ -1,8 +1,15 @@
 #!/bin/bash
 set -e
 
+if ! sh /VPN.sh; then
+
+    exit 1
+fi
+
 validate_cvd() {
+    
     if ! clamscan --debug --infected --no-summary "$1"; then
+    
         echo "Corrupted CVD detected: $(basename "$1")" >&2
         rm -f "$1"
         return 1
@@ -14,12 +21,14 @@ chown -R clamav:clamav /var/lib/clamav
 chmod -R 775 /var/lib/clamav
 
 for cvd in /var/lib/clamav/*.cvd; do
+    
     [ -f "$cvd" ] && validate_cvd "$cvd"
 done
 
 if [ ! -f "/var/lib/clamav/main.cvd" ] || \
    [ ! -f "/var/lib/clamav/daily.cvd" ] || \
    [ ! -f "/var/lib/clamav/bytecode.cvd" ]; then
+    
     echo "Downloading fresh databases..."
     sudo -u clamav freshclam --stdout --no-warnings
 fi
