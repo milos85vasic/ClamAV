@@ -61,6 +61,10 @@ vpn_download "https://database.clamav.net/daily.cvd" || \
     vpn_download "https://db.cn.clamav.net/daily.cvd" || \
     vpn_download "https://db.jp.clamav.net/daily.cvd"
 
+vpn_download "https://database.clamav.net/bytecode.cvd" || \
+    vpn_download "https://db.cn.clamav.net/bytecode.cvd" || \
+    vpn_download "https://db.jp.clamav.net/bytecode.cvd"
+
 vpn_download https://ftp.swin.edu.au/sanesecurity/ksp.hdb
 vpn_download https://ftp.swin.edu.au/sanesecurity/ksp.ldb
 
@@ -73,16 +77,19 @@ cp *.cvd *.hdb *.ldb /var/lib/clamav/ && \
     echo "ScriptedUpdates no" >> /usr/local/etc/freshclam.conf && \
     echo "Checks 24" >> /usr/local/etc/freshclam.conf && \
     echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
+    
+    # TODO:
     # echo "DatabaseMirror http://ftp.swin.edu.au/sanesecurity" > /usr/local/etc/freshclam.conf && \
     # echo "DatabaseMirror http://clamavdb.heanet.ie/sanesecurity" > /usr/local/etc/freshclam.conf && \
     # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbl.ndb" >> /usr/local/etc/freshclam.conf && \
     # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
     # echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/ksp.hdb" >> /usr/local/etc/freshclam.conf
 
+sudo -u clamav clamscan --debug --infected --no-summary /usr/local/share/clamav/ && sudo -u clamav clamscan --version
+
 # freshclam --verbose && \
-clamscan --debug | grep Kaspersky && \
-    clamscan --version && echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
-    clamscan test.txt && \
+echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt && \
+    sudo -u clamav clamscan test.txt && \
     rm test.txt
 
 echo "TODO: Further"
