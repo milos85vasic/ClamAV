@@ -28,6 +28,8 @@ vpn_download() {
   local url=$1
   local retries=3
   local timeout=15
+
+  echo "Downloading: '$url'"
   
   while [ $retries -gt 0 ]; do
   
@@ -36,13 +38,17 @@ vpn_download() {
             --silent --show-error \
             "$url" --output "${url##*/}"; then
 
-      return 0
+        echo "Downloaded: '$url'"
+
+        return 0
     fi
     
     retries=$((retries-1))
     sleep 5
 
   done
+
+  echo "Failed to download: '$url'"
   return 1
 }
 
