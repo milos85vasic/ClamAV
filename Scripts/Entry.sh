@@ -25,7 +25,7 @@ echo "nameserver 1.1.1.1" > /etc/resolv.conf
 echo "VPN routing configured: " && ip route show
 
 echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
-    echo "DatabaseDirectory /usr/local/share/clamav" >> /usr/local/etc/freshclam.conf && \
+    echo "DatabaseDirectory /var/lib/clamav" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror https://db.cn.clamav.net" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://db.by.clamav.net" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://db.kz.clamav.net" >> /usr/local/etc/freshclam.conf && \
@@ -37,10 +37,14 @@ echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
     echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
     echo "Checks 24" >> /usr/local/etc/freshclam.conf && \
     echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
-    
-sudo -u clamav freshclam --verbose && \
-    sudo -u clamav clamscan --debug --infected --no-summary /usr/local/share/clamav/ && \
-    sudo -u clamav clamscan --version
+
+sudo ln -s /var/lib/clamav/* /usr/local/share/clamav/ && \
+    sudo chown -R clamav:clamav /var/lib/clamav /usr/local/share/clamav
+
+sudo systemctl restart clamav-freshclam
+sudo systemctl status clamav-freshclam
+
+sudo -u clamav freshclam --verbose && sudo -u clamav clamscan --version
 
 if ! sudo -u clamav clamscan --debug | grep -A5 "Loaded signatures"; then
     

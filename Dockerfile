@@ -13,7 +13,10 @@ RUN apt-get update && \
     ca-certificates \
     msmtp \
     mailutils \
-    inotify-tools
+    inotify-tools \
+    clamav clamav-daemon clamav-freshclam && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY Scripts/ /Scripts/
 COPY config.ovpn /etc/openvpn/config.ovpn
@@ -21,13 +24,7 @@ COPY config.ovpn /etc/openvpn/config.ovpn
 RUN chmod +x /Scripts/*.sh
 
 RUN cat /etc/openvpn/config.ovpn && test -e /etc/openvpn/config.ovpn
-RUN wget https://www.clamav.net/downloads/production/clamav-1.0.8.linux.x86_64.deb
     
-RUN apt-get install -y ./clamav-1.0.8.linux.x86_64.deb && \
-    rm clamav-1.0.8.linux.x86_64.deb && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
 RUN groupadd clamav && \
     useradd -g clamav -s /bin/false -d /dev/null clamav && \
     mkdir -p /var/lib/clamav && \
