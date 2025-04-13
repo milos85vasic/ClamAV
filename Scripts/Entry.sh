@@ -36,8 +36,8 @@ echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
 
 sudo chown -R clamav:clamav /var/lib/clamav /usr/local/share/clamav
 sudo -u clamav freshclam --verbose && sudo -u clamav clamscan --version
-
 sudo rm -f /var/lib/clamav/ksp.*
+sudo -u clamav clamscan --reload
 
 # if ! sudo -u clamav clamscan --debug | grep -A5 "Loaded signatures"; then
     
