@@ -50,13 +50,13 @@ if ! test -e /test.txt; then
 fi
 
 echo "Test file content:"
-cat /test.txt
+cat /test.exe
 echo ""
 
-if sudo -u clamav clamscan --debug --infected --no-summary /test.txt | grep -q "EICAR-Test-File"; then
+if sudo -u clamav clamscan --debug --infected --no-summary /test.exe | grep -q "EICAR-Test-File"; then
     
     echo "✅ EICAR test file detected (ClamAV working)"
-    # rm -f test.txt
+    # rm -f test.exe
     
 else
     
