@@ -37,10 +37,26 @@ echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
 sudo chown -R clamav:clamav /var/lib/clamav /usr/local/share/clamav
 sudo -u clamav freshclam --verbose && sudo -u clamav clamscan --version
 
+sudo rm -f /var/lib/clamav/ksp.hdb /var/lib/clamav/ksp.ldb
+
+sudo -u clamav wget -P /var/lib/clamav/ \
+    https://ftp.swin.edu.au/sanesecurity/ksp.hdb \
+    https://ftp.swin.edu.au/sanesecurity/ksp.ldb
+
+sudo chown clamav:clamav /var/lib/clamav/ksp.*
+
+if ! sudo -u clamav clamscan --debug /var/lib/clamav/ksp.hdb; then
+    
+    echo "❌ ERROR: ksp.hdb signature not loaded" && \
+        sudo -u clamav clamscan --version
+    
+    exit 1
+fi
+
 if ! sudo -u clamav clamscan --debug | grep -A5 "Loaded signatures"; then
     
-    echo "❌ ERROR: ClamAV signatures not loaded, database location is: " && \
-        sudo -u clamav clamscan --version | grep "Database directory"
+    echo "❌ ERROR: ClamAV signatures not loaded" && \
+        sudo -u clamav clamscan --version
     
     exit 1
 fi
