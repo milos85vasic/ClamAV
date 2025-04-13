@@ -37,16 +37,23 @@ echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
 sudo chown -R clamav:clamav /var/lib/clamav /usr/local/share/clamav
 sudo -u clamav freshclam --verbose && sudo -u clamav clamscan --version
 sudo rm -f /var/lib/clamav/ksp.*
-sudo -u clamav clamscan --reload
 
+echo "ClamAV configuration: "
+echo "----------------------------------------"
 grep -E '(AlgorithmicDetection|Heuristic|Target)' /etc/clamav/clamd.conf
+echo "----------------------------------------"
 
-test -e test.txt
+if ! test -e /test.txt; then
+    
+    echo "ERROR: EICAR test asset file not found"
+    exit 1
+fi
+
 echo "Test file content:"
-cat test.txt
+cat /test.txt
 echo ""
 
-if sudo -u clamav clamscan --debug --infected --no-summary test.txt | grep -q "EICAR-Test-File"; then
+if sudo -u clamav clamscan --debug --infected --no-summary /test.txt | grep -q "EICAR-Test-File"; then
     
     echo "✅ EICAR test file detected (ClamAV working)"
     # rm -f test.txt
