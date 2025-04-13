@@ -42,6 +42,14 @@ sudo -u clamav freshclam --verbose && \
     sudo -u clamav clamscan --debug --infected --no-summary /usr/local/share/clamav/ && \
     sudo -u clamav clamscan --version
 
+if ! sudo -u clamav clamscan --debug | grep -A5 "Loaded signatures"; then
+    
+    echo "❌ ERROR: ClamAV signatures not loaded, database location is: " && \
+        sudo -u clamav clamscan --version | grep "Database directory"
+    
+    exit 1
+fi
+
 echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt
 echo "Test file content:"
 cat test.txt
