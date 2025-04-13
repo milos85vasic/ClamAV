@@ -39,10 +39,6 @@ echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
     echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
 
 sudo chown -R clamav:clamav /var/lib/clamav /usr/local/share/clamav
-
-sudo systemctl restart clamav-freshclam
-sudo systemctl status clamav-freshclam
-
 sudo -u clamav freshclam --verbose && sudo -u clamav clamscan --version
 
 if ! sudo -u clamav clamscan --debug | grep -A5 "Loaded signatures"; then
