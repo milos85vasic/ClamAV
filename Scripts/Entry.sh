@@ -38,8 +38,7 @@ echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
     echo "Checks 24" >> /usr/local/etc/freshclam.conf && \
     echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
 
-sudo ln -s /var/lib/clamav/* /usr/local/share/clamav/ && \
-    sudo chown -R clamav:clamav /var/lib/clamav /usr/local/share/clamav
+sudo chown -R clamav:clamav /var/lib/clamav /usr/local/share/clamav
 
 sudo systemctl restart clamav-freshclam
 sudo systemctl status clamav-freshclam
