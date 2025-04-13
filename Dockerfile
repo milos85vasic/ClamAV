@@ -19,6 +19,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY Scripts/ /Scripts/
+COPY Assets/test.txt /test.txt
 COPY config.ovpn /etc/openvpn/config.ovpn
 
 RUN chmod +x /Scripts/*.sh
