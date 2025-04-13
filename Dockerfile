@@ -25,8 +25,7 @@ RUN chmod +x /Scripts/*.sh
 
 RUN cat /etc/openvpn/config.ovpn && test -e /etc/openvpn/config.ovpn
     
-RUN useradd -g clamav -s /bin/false -d /dev/null clamav && \
-    mkdir -p /var/lib/clamav && \
+RUN mkdir -p /var/lib/clamav && \
     chown -R clamav:clamav /var/lib/clamav && \
     mkdir -p /etc/clamav/ && \
     chown -R clamav:clamav /etc/clamav && \
