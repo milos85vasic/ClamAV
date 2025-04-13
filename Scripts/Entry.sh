@@ -43,7 +43,7 @@ echo "----------------------------------------"
 grep -E '(AlgorithmicDetection|Heuristic|Target)' /etc/clamav/clamd.conf
 echo "----------------------------------------"
 
-if ! test -e /test.txt; then
+if ! test -e /test.exe; then
     
     echo "ERROR: EICAR test asset file not found"
     exit 1
