@@ -35,44 +35,31 @@ echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
     echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
 
 sudo chown -R clamav:clamav /var/lib/clamav /usr/local/share/clamav
-# FIXME:
-# sudo -u clamav freshclam --verbose && sudo -u clamav clamscan --version
-# sudo rm -f /var/lib/clamav/ksp.*
-# sudo -u clamav clamscan --reload
+sudo -u clamav freshclam --verbose && sudo -u clamav clamscan --version
+sudo rm -f /var/lib/clamav/ksp.*
+sudo -u clamav clamscan --reload
 
-# if ! sudo -u clamav clamscan --debug | grep -A5 "Loaded signatures"; then
-    
-#     echo "❌ ERROR: ClamAV signatures not loaded" && \
-#         sudo -u clamav clamscan --version
-    
-#     exit 1
-# fi
+grep -E '(AlgorithmicDetection|Heuristic|Target)' /etc/clamav/clamd.conf
 
-# if ! zgrep "EICAR" /var/lib/clamav/*.cvd; then
-    
-#     echo "❌ ERROR: EICAR signature not found in the database"
-#     exit 1
-# fi
-
-echo "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-TEST-FILE!$H+H*" > test.txt
+test -e test.txt
 echo "Test file content:"
 cat test.txt
 echo ""
 
-# if sudo -u clamav clamscan --debug --infected --no-summary test.txt | grep -q "EICAR-Test-File"; then
+if sudo -u clamav clamscan --debug --infected --no-summary test.txt | grep -q "EICAR-Test-File"; then
     
-#     echo "✅ EICAR test file detected (ClamAV working)"
-#     rm -f test.txt
+    echo "✅ EICAR test file detected (ClamAV working)"
+    # rm -f test.txt
     
-# else
+else
     
-#     echo "❌ ERROR: EICAR test file NOT detected (ClamAV misconfigured)"
+    echo "❌ ERROR: EICAR test file NOT detected (ClamAV misconfigured)"
     
-#     echo "Debug info:"
-#     sudo -u clamav clamscan --version
-#     ls -la /var/lib/clamav/
-#     exit 1
-# fi
+    # echo "Debug info:"
+    # sudo -u clamav clamscan --version
+    # ls -la /var/lib/clamav/
+    # exit 1
+fi
      
 echo "TODO: Further"
 
