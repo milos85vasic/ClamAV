@@ -31,10 +31,6 @@ echo "ScriptedUpdates no" > /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://db.kz.clamav.net" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://clamav.belnet.be" >> /usr/local/etc/freshclam.conf && \
     echo "DatabaseMirror http://clamav.by" >> /usr/local/etc/freshclam.conf && \
-    echo "DatabaseMirror http://ftp.swin.edu.au/sanesecurity" >> /usr/local/etc/freshclam.conf && \
-    echo "DatabaseMirror http://clamavdb.heanet.ie/sanesecurity" >> /usr/local/etc/freshclam.conf && \
-    echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbl.ndb" >> /usr/local/etc/freshclam.conf && \
-    echo "DatabaseCustomURL http://ftp.swin.edu.au/sanesecurity/jurlbla.ndb" >> /usr/local/etc/freshclam.conf && \
     echo "Checks 24" >> /usr/local/etc/freshclam.conf && \
     echo "Generated the '/usr/local/etc/freshclam.conf': " && cat /usr/local/etc/freshclam.conf
 
