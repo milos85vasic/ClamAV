@@ -20,7 +20,7 @@ sudo chmod 600 /etc/msmtprc
 sudo chown root:root /etc/msmtprc
 
 # FIXME:
-# if ! echo "Test email from ClamAV" | mailx -s "ClamAV Setup Test" "${ALERT_EMAIL}"; then
+# if ! echo "Test email from ClamAV" | mailx -v -s "ClamAV Setup Test" "${ALERT_EMAIL}"; then
   
 #     echo "❌ ERROR: Failed to send the test email"
 #     tail -f /var/log/msmtp.log
