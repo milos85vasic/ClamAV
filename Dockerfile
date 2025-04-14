@@ -11,9 +11,7 @@ RUN apt-get update && \
     iptables \
     gnupg \
     ca-certificates \
-    msmtp \
-    msmtp-mta \
-    bsd-mailx \
+    ssmtp \
     libsasl2-modules \
     mailutils \
     inotify-tools \

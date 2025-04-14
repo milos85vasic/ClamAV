@@ -1,32 +1,25 @@
 #!/bin/bash
 set -e
 
-[ -d /etc/msmtprc ] && sudo rm -rf /etc/msmtprc
+[ -d /etc/msmtprc ] && sudo rm -rf /etc/ssmtp/ssmtp.conf
 
-sudo tee /etc/msmtprc >/dev/null <<EOF
-account default
-host ${SMTP_HOST}
-port ${SMTP_PORT}
-from ${SMTP_USER}
-auth on
-user ${SMTP_USER}
-password ${SMTP_PASSWORD}
-tls on
-tls_starttls on
-logfile /var/log/msmtp.log
+sudo tee /etc/ssmtp/ssmtp.conf >/dev/null <<EOF
+root=${SMTP_USER}
+mailhub=${SMTP_HOST}:${SMTP_PORT}
+AuthUser=${SMTP_USER}
+AuthPass=${SMTP_PASSWORD}
+UseTLS=YES
+UseSTARTTLS=YES
 EOF
 
-sudo chmod 600 /etc/msmtprc
-sudo chown root:root /etc/msmtprc
+sudo chmod 600 /etc/ssmtp/ssmtp.conf
+sudo chown root:root /etc/ssmtp/ssmtp.conf
 
-# FIXME:
-# if ! echo "Test email from ClamAV" | mailx -v -s "ClamAV Setup Test" "${ALERT_EMAIL}"; then
+if ! echo "Test email from ClamAV" | ssmtp "${ALERT_EMAIL}"; then
   
-#     echo "❌ ERROR: Failed to send the test email"
-#     tail -f /var/log/msmtp.log
-#     exit 1
-# fi
+    echo "❌ ERROR: Failed to send the test email"
+    exit 1
+fi
 
-# echo "✅ Test email sent successfully to ${ALERT_EMAIL}"
-# tail -f /var/log/msmtp.log
-# echo "----------------------------------------"
+echo "✅ Test email sent successfully to ${ALERT_EMAIL}"
+exit 0
