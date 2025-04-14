@@ -55,19 +55,19 @@ echo "Test file content:"
 cat /eicar.com.txt
 echo ""
 
-if sudo -u clamav clamscan --debug --infected /eicar.com.txt | grep -q "EICAR-Test-File"; then
+if sudo -u clamav clamscan --debug --infected /eicar.com.txt | grep -q "Infected files: 1"; then
     
     echo "✅ EICAR test file detected (ClamAV working)"
-    # rm -f eicar.com.txt
+    rm -f eicar.com.txt
     
 else
     
     echo "❌ ERROR: EICAR test file NOT detected (ClamAV misconfigured)"
     
-    # echo "Debug info:"
-    # sudo -u clamav clamscan --version
-    # ls -la /var/lib/clamav/
-    # exit 1
+    echo "Debug info:"
+    sudo -u clamav clamscan --version
+    ls -la /var/lib/clamav/
+    exit 1
 fi
      
 echo "TODO: Further"
