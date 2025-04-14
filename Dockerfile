@@ -12,7 +12,9 @@ RUN apt-get update && \
     gnupg \
     ca-certificates \
     msmtp \
-    mailx \
+    msmtp-mta \
+    bsd-mailx \
+    libsasl2-modules \
     mailutils \
     inotify-tools \
     clamav clamav-daemon clamav-freshclam && \
