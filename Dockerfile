@@ -11,9 +11,7 @@ RUN apt-get update && \
     iptables \
     gnupg \
     ca-certificates \
-    sendmail \
     libsasl2-modules \
-    mailutils \
     inotify-tools \
     clamav clamav-daemon clamav-freshclam && \
     apt-get clean && \

@@ -70,9 +70,9 @@ else
     exit 1
 fi
 
-if ! sh /Scripts/TestSendmail.sh; then
+if ! sh /Scripts/Log.sh ""Test log from ClamAV""; then
     
-    echo "ERROR: TestSendmail.sh script failed"
+    echo "ERROR: Log.sh script failed"
     exit 1
 fi
 

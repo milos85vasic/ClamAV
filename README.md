@@ -10,11 +10,6 @@ The `config.ovpn` for VPN has to be provided and credentials env. variables set.
 Set the environment variables to set on host machine:
 
 ```shell
-ALERT_EMAIL=""        # Comma separate recipiants list
-SMTP_HOST=""          # e.g., smtp.gmail.com
-SMTP_PORT=""          # e.g., 587
-SMTP_USER=""          # your@email.com
-SMTP_PASSWORD=""      # App password
 VPN_USER=""
 VPN_PASSWORD=""
 ```
