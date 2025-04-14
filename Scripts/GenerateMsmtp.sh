@@ -15,6 +15,11 @@ EOF
 sudo chmod 600 /etc/ssmtp/ssmtp.conf
 sudo chown root:root /etc/ssmtp/ssmtp.conf
 
+echo "-----------------------------------------"
+echo "ssmtp configuration: "
+cat /etc/ssmtp/ssmtp.conf
+echo "----------------------------------------"
+
 if ! echo "Test email from ClamAV" | ssmtp "${ALERT_EMAIL}"; then
   
     echo "❌ ERROR: Failed to send the test email"
