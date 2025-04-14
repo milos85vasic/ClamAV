@@ -43,20 +43,22 @@ echo "----------------------------------------"
 grep -E '(AlgorithmicDetection|Heuristic|Target)' /etc/clamav/clamd.conf
 echo "----------------------------------------"
 
-if ! test -e /test.exe; then
+curl -O https://secure.eicar.org/eicar.com.txt
+
+if ! test -e /eicar.com.txt; then
     
     echo "ERROR: EICAR test asset file not found"
     exit 1
 fi
 
 echo "Test file content:"
-cat /test.exe
+cat /eicar.com.txt
 echo ""
 
-if sudo -u clamav clamscan --debug --infected --no-summary /test.exe | grep -q "EICAR-Test-File"; then
+if sudo -u clamav clamscan --debug --infected --no-summary /eicar.com.txt | grep -q "EICAR-Test-File"; then
     
     echo "✅ EICAR test file detected (ClamAV working)"
-    # rm -f test.exe
+    # rm -f eicar.com.txt
     
 else
     

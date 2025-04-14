@@ -19,7 +19,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY Scripts/ /Scripts/
-COPY Assets/test.exe /test.exe
 COPY config.ovpn /etc/openvpn/config.ovpn
 COPY Configurations/clamd.conf /etc/clamav/clamd.conf
 
