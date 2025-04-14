@@ -70,9 +70,9 @@ else
     exit 1
 fi
 
-if ! sh /Scripts/GenerateMsmtp.sh; then
+if ! sh /Scripts/TestSendmail.sh; then
     
-    echo "ERROR: GenerateMsmtp.sh script failed"
+    echo "ERROR: TestSendmail.sh script failed"
     exit 1
 fi
 

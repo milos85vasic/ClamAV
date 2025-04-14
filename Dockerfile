@@ -11,7 +11,7 @@ RUN apt-get update && \
     iptables \
     gnupg \
     ca-certificates \
-    ssmtp \
+    sendmail \
     libsasl2-modules \
     mailutils \
     inotify-tools \
