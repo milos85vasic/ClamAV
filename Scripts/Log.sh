@@ -7,5 +7,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-echo ">> $1"
+TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+
+echo "LOG :: $TIMESTAMP :: $1"
 
