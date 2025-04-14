@@ -19,4 +19,9 @@ EOF
 sudo chmod 600 /etc/msmtprc
 sudo chown root:root /etc/msmtprc
 
-echo "Test email from ClamAV" | mailx -s "ClamAV Setup Test" "${ALERT_EMAIL}"
+if ! echo "Test email from ClamAV" | mailx -s "ClamAV Setup Test" "${ALERT_EMAIL}"; then
+  
+    echo "❌ ERROR: Failed to send the test email"
+    tail -f /var/log/msmtp.log
+    exit 1
+fi
