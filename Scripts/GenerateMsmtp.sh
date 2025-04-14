@@ -25,3 +25,5 @@ if ! echo "Test email from ClamAV" | mailx -s "ClamAV Setup Test" "${ALERT_EMAIL
     tail -f /var/log/msmtp.log
     exit 1
 fi
+
+echo "✅ Test email sent successfully to ${ALERT_EMAIL}"
