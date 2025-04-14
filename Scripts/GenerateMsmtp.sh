@@ -1,6 +1,9 @@
 #!/bin/bash
+set -e
 
-cat <<EOF > /etc/msmtprc
+[ -d /etc/msmtprc ] && sudo rm -rf /etc/msmtprc
+
+sudo tee /etc/msmtprc >/dev/null <<EOF
 account default
 host ${SMTP_HOST}
 port ${SMTP_PORT}
@@ -13,6 +16,7 @@ tls_starttls on
 logfile /var/log/msmtp.log
 EOF
 
-chmod 600 /etc/msmtprc
+sudo chmod 600 /etc/msmtprc
+sudo chown root:root /etc/msmtprc
 
-echo "Test email from ClamAV" | mailx -s "ClamAV Setup Test" ${ALERT_EMAIL}
+echo "Test email from ClamAV" | mailx -s "ClamAV Setup Test" "${ALERT_EMAIL}"
