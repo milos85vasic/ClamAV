@@ -82,15 +82,10 @@ fi
 
 SCRIPT="/Scripts/ScanAndAlert.sh"
 
-if test -e "$SCRIPT"; then
+if ! test -e "$SCRIPT"; then
 
-    echo "Script ScanAndAlert.sh found at $SCRIPT. Executing..."
-    # exec "$SCRIPT" &
-
-else
-    
     echo "Script ScanAndAlert.sh not found at $SCRIPT"
     exit 1
-fi
+else
 
 tail -f /var/log/clamav/clamav.log
