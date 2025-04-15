@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo docker exec clamav freshclam
+sudo docker exec -w / clamav freshclam

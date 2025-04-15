@@ -2,7 +2,7 @@
 Description=ClamAV Real-Time Monitor
 
 [Service]
-ExecStart=/bin/bash -c "while inotifywait -r -e create,modify /mnt/DATA; do docker exec clamav /Scripts/ScanAndAlert.sh; done"
+ExecStart=/bin/bash -c "while inotifywait -r -e create,modify /mnt/DATA; do docker exec -w / clamav /Scripts/ScanAndAlert.sh; done"
 Restart=always
 User=root
 
