@@ -7,7 +7,15 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+if test -e /Custom/Scripts/Log.sh;
 
-echo "LOG :: $TIMESTAMP :: $1"
+    sh /Custom/Scripts/Log.sh "$1"
+
+else
+
+    TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+
+    echo "LOG :: $TIMESTAMP :: $1"
+fi
+
 

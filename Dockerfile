@@ -18,11 +18,12 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY Scripts/ /Scripts/
-COPY Custom/Scripts/ /Scripts/
+COPY Custom/Scripts/ /Custom/Scripts/
 COPY config.ovpn /etc/openvpn/config.ovpn
 COPY Configurations/clamd.conf /etc/clamav/clamd.conf
 
 RUN chmod +x /Scripts/*.sh
+RUN chmod +x /Custom/Scripts/*.sh
 
 RUN cat /etc/openvpn/config.ovpn && test -e /etc/openvpn/config.ovpn
     
