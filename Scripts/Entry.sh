@@ -55,7 +55,7 @@ echo "Test file content:"
 cat /eicar.com.txt
 echo ""
 
-if sudo -u clamav clamscan --remove --debug --infected /eicar.com.txt | grep -q "Infected files: 1"; then
+if sudo clamscan --remove --debug --infected /eicar.com.txt | grep -q "Infected files: 1"; then
     
     echo "✅ EICAR test file detected (ClamAV working)"
     
