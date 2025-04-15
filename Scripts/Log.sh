@@ -7,7 +7,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-if test -e /Custom/Scripts/Log.sh;
+if test -e /Custom/Scripts/Log.sh; then
 
     sh /Custom/Scripts/Log.sh "$1"
 
