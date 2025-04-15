@@ -9,5 +9,5 @@ else
   TAG="$1"
 fi
 
-echo "Anti-Virus scan started from '$TAG'" | /Scripts/Log.sh && \
+sudo echo "Anti-Virus scan started from '$TAG'" | /Scripts/Log.sh && \
   sudo clamscan -r --remove /scandir | grep --line-buffered "FOUND" | /Scripts/Log.sh
