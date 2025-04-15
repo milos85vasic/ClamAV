@@ -1,21 +1,22 @@
 #!/bin/bash
-set -e
 
-if [ -z "$1" ]; then
+TARGET_SCRIPT="/Custom/Scripts/Log.sh"
 
-    echo "Usage: $0 <message>"
-    exit 1
+if [ ! -t 0 ]; then
+    if [ -e "$TARGET_SCRIPT" ]; then
+        while IFS= read -r line; do
+            echo "$line" | "$TARGET_SCRIPT"
+        done
+    else
+        cat  # Just output the piped data
+    fi
 fi
 
-if test -e /Custom/Scripts/Log.sh; then
-
-    sh /Custom/Scripts/Log.sh "$1"
-
-else
-
-    TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
-
-    echo "LOG :: $TIMESTAMP :: $1"
+# If arguments are provided, forward them
+if [ $# -gt 0 ]; then
+    if [ -e "$TARGET_SCRIPT" ]; then
+        "$TARGET_SCRIPT" "$1"
+    else
+        echo "$1"
+    fi
 fi
-
-
