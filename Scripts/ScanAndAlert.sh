@@ -2,9 +2,12 @@
 
 if [ -z "$1" ]; then
 
-    echo "Usage: $0 <message>"
-    exit 1
+  TAG="DEFAULT"
+
+else
+
+  TAG="$1"
 fi
 
-echo "Scan started from '$1'" && \
+echo "Anti-Virus scan started from '$TAG'" | /Scripts/Log.sh && \
   clamscan -r --move=/quarantine /scandir | grep --line-buffered "FOUND" | /Scripts/Log.sh
