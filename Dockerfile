@@ -41,7 +41,6 @@ RUN mkdir -p /var/lib/clamav && \
 
 VOLUME /DATA
 VOLUME /scandir
-VOLUME /quarantine
 VOLUME /var/lib/clamav
 
 ENTRYPOINT ["/bin/bash", "/Scripts/Entry.sh"]
