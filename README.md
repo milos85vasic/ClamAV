@@ -15,3 +15,11 @@ VPN_PASSWORD=""
 ```
 
 Install everything by running the install script `Install.sh`.
+
+## Customizations
+
+We can modify certain aspects of the system.
+
+### Custom events logger
+
+To override the implementation of the default evnts logging script `Scripts/Log.sh` put your implementation under `Custom/Scripts/Log.sh` path. Docker will use that one.
