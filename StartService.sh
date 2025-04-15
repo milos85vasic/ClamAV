@@ -1,10 +1,5 @@
 #!/bin/bash
 
-sudo cp clamav-monitor.service /etc/systemd/system/clamav-monitor.service && \
-    sudo systemctl enable --now clamav-monitor
-
-#!/bin/bash
-
 SERVICE_NAME="clamav-monitor"
 SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
 
