@@ -8,6 +8,7 @@ services:
       - VPN_PASSWORD=${VPN_PASSWORD}
     volumes:
       - ./Scripts:/Scripts
+      - /mnt/DATA:/DATA:rw
       - /mnt/DATA:/scandir:ro
       - ./quarantine:/quarantine
       - ./clamav_db:/var/lib/clamav

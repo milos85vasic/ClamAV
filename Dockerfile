@@ -39,6 +39,7 @@ RUN mkdir -p /var/lib/clamav && \
     mkdir -p /usr/local/share/clamav && \
     chown -R clamav:clamav /usr/local/share/clamav
 
+VOLUME /DATA
 VOLUME /scandir
 VOLUME /quarantine
 VOLUME /var/lib/clamav
