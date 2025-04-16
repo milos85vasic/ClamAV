@@ -16,6 +16,8 @@ if ps -A | grep clamscan; then
 else
 
   sudo echo "Anti-Virus scan started. Requested from '$TAG'" | sudo /Scripts/Log.sh && \
+    sudo echo "The following directories will be scanned: " | sudo /Scripts/Log.sh && \
+    sudo ls -lF /scandir | sudo /Scripts/Log.sh && \
     sudo clamscan -r --remove /scandir | grep --line-buffered "FOUND" | sudo /Scripts/Log.sh && \
     sudo echo "Anti-Virus scan completed. Requested from '$TAG'" | sudo /Scripts/Log.sh
 fi
