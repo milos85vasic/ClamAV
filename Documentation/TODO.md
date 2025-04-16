@@ -1,5 +1,5 @@
 # TODO list
 
-- `inotifywait` to provide list of items to be scanned
+- Tune and test the rest of bash scripts
 - Fork to Vasic Digital
 - Upstreams
