@@ -9,7 +9,7 @@ services:
     volumes:
       - ./Scripts:/Scripts
       - /mnt/DATA:/DATA:rw
-      - /mnt/DATA:/scandir:rw
+      - /mnt:/scandir:rw
       - ./clamav_db:/var/lib/clamav
     cap_add:
       - NET_ADMIN
