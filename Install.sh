@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sh Build.sh && sh StartService.sh
+sh Build.sh # && sh StartService.sh
