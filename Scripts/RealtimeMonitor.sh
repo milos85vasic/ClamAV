@@ -8,9 +8,8 @@ inotifywait -m -r -e modify,create,delete --format '%w%f %e' "$MONITOR_DIR" | wh
     
         echo "Processing file: $file (Event: $event)"
         
+        # TODO: Do proper clamscan execution and result forwarding to the Log.sh script (if needed)
         clamscan "$file"
-
-                
 
     else
         
