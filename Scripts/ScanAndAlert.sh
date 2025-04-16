@@ -1,14 +1,25 @@
 #!/bin/bash
 
+TAG="DEFAULT"
 SCANWHAT="/scandir"
 
 if [ -z "$1" ]; then
 
-  TAG="DEFAULT"
+  echo "No tag provided. Please provide a tag as the first argument." | sudo /Scripts/Log.sh
+  exit 1
 
 else
 
   TAG="$1"
+fi
+
+if [ -z "$2" ]; then
+
+  SCANWHAT="/scandir"
+
+else
+
+  SCANWHAT="$2"
 fi
 
 if ps -A | grep clamscan; then
